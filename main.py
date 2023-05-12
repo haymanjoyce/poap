@@ -14,5 +14,10 @@ def test(argument, opt):
     print(f'arg: {argument}, opt: {opt}')
 
 
+@main.command()
+def add():
+    print("Add command executed")
+
+
 if __name__ == '__main__':
     main()
