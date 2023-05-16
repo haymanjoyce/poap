@@ -17,6 +17,8 @@ def test(argument, opt):
 @main.command()
 def add():
     print("Add command executed")
+    prompt = click.prompt("Please enter prompt:", default="Default prompt")
+    print(prompt)
 
 
 if __name__ == '__main__':
