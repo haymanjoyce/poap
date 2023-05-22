@@ -8,8 +8,7 @@ def main():
 
 @main.command()
 @click.argument('argument')
-@click.option('--opt', '-o',
-              envvar="NOTE")
+@click.option('--opt', '-o', envvar="NOTE", type=str)
 def test(argument, opt):
     print(f'arg: {argument}, opt: {opt}')
 
