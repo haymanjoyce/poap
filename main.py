@@ -2,15 +2,25 @@ import click
 
 
 @ click.group()
-def main():
-    pass
+@ click.option('--shared', '-s', type=str)
+@ click.pass_context
+def main(meta, shared):
+    # print(type(meta))
+    # print(dir(meta))
+    meta.obj = shared
+    if meta.obj is None:
+        meta.obj = 'No shared value'
+    # print(f'{meta.obj}')
 
 
 @main.command()
 @click.argument('argument')
 @click.option('--opt', '-o', envvar="NOTE", type=str)
-def test(argument, opt):
-    print(f'arg: {argument}, opt: {opt}')
+@click.pass_context
+def test(meta, argument, opt):
+    if opt is None:
+        opt = meta.obj
+    print(f'arg: {argument}, opt: {opt}, meta: {meta.obj}')
 
 
 @main.command()
