@@ -37,5 +37,11 @@ def add():
 @main.command()
 def load():
     file_name = 'sample.csv'
-    file.read_file(file_name)
+    file.read_file_csv(file_name)
+
+
+@main.command()
+@click.argument('table')
+def export():
+    pass
 
