@@ -1,17 +1,11 @@
-How do we input and output data with a CLI?
+So features we want...
 
-So the user (he) pulls the tables (CSV) from tool
-He then edits the table (in text editor or spreadsheet)
-He and add, update, delete rows
-Then he imports the table back in
-(We can make it easier by adding option to export them all at same time, and to Excel, and opening the spreadsheet)
-Then the tool does some checks on the imported data
-Then it parses it to JSON (this means all the data for a chart can be saved in one JSON file) (use Pandas)
-Then the user can generate the SVG (and then other formats) from the JSON held in memory
-Or he can save the JSON to a file to store persistently
+Save to CSV, Excel, JSON, or Pickle (.pkl) (so any/all data can represented as any of these)
+Export named tables (default CSV), all tables (default Excel), chart settings (default JSON), tool settings (if different) (default JSON), everything (default .pkl)
+Load/merge the data back in after user has edited, added, deleted content
+Check imported data makes sense and reject it if not (try, except)
+[Use Pandas Dataframes to hold data in memory (and not dict of dicts) because Pandas come with lots of this functionality built in and functionality for interacting with data via CLI]
 
-Settings data for a chart or config data for a tool is not really tabular
-In both cases, we could export as JSON or text file
-I think we export as JSON but, typically, the user will change settings via the interface, one at a time
+Next...
 
-Users can also view tables and other data on the interface but no suitable for editing data
+Next we want to process the data - turn it into SVG
