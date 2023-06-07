@@ -1,11 +1,23 @@
 So features we want...
 
+Data handling...
 Save to CSV, Excel, JSON, or Pickle (.pkl) (so any/all data can represented as any of these)
-Export named tables (default CSV), all tables (default Excel), chart settings (default JSON), tool settings (if different) (default JSON), everything (default .pkl)
+Export named tables (format data only, chart data only, all) (default CSV), all tables (default Excel), chart settings (default JSON), tool settings (if different) (default JSON), everything (default .pkl)
 Load/merge the data back in after user has edited, added, deleted content
+Use Pandas Dataframes to hold data in memory (and not dict of dicts) because Pandas come with lots of this functionality built in and functionality for interacting with data via CLI
+
+Checking data...
 Check imported data makes sense and reject it if not (try, except)
-[Use Pandas Dataframes to hold data in memory (and not dict of dicts) because Pandas come with lots of this functionality built in and functionality for interacting with data via CLI]
+This can be an option on loading back in or a standalone command
 
-Next...
-
+Generating SVG...
 Next we want to process the data - turn it into SVG
+Going to use drawsvg2 for this - covered in project journal
+Drawsvg2 also supports, with Cairo, outputs in all kinds of format
+So we want a command, with options, for generating the chart from the available data
+Need to think about most efficient way of doing this - can we read data straight from df or do we need to create dataclass/attrs objects to hold it before conversion to SVG?
+
+Saving chart...
+We want a command for "printing" or saving the chart, with options
+One of those options could be, at some point, a web page, by the way - with data loaded so it is dynamic
+We could also build a QtSVG viewer into the app in case user doesn't have a browser/app with which to view the SVG
