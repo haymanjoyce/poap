@@ -10,18 +10,22 @@ Checking data...
 Check imported data makes sense and reject it if not (try, except)
 This can be an option on loading back in or a standalone command
 
+Processing data...
+In this step we need to convert human readable data into arbitrary spatial units
+Pandas supports converting date ranges into increments
+We do all this conversion in Pandas - as much as possible and so minimise rendering time from Pandas to SVG
+We will need to consider scaling here too
+In drawsvg2 scaling increases borders which we may not want as we will get border overlap/bleed
+Probably want command here for crunching the data
+So the outcome is to have all the parameters for generating svg in svgdraw2 api ready
+
 Generating SVG...
-Next we want to process the data - turn it into SVG
 Going to use drawsvg2 for this - covered in project journal
 Drawsvg2 also supports, with Cairo, outputs in all kinds of format
 So we want a command, with options, for generating the chart from the available data
-Need to think about most efficient way of doing this - can we read data straight from df or do we need to create dataclass/attrs objects to hold it before conversion to SVG?
-We also need to turn time into pixels and create scales; Pandas has support for creating data increments
-Do we prep all the data in the dataframe first or do the conversions in, for example, shape classes?
-Inclined to do everything in the dataframes first - so we take the human readable data and turn it into arbitrary units which we then convert to pixels at required scale
-This is clean and means we, in essence, compile in dataframes, then generate svg with min processing - good for animation if we need it
+Effectively, this step should just be parsing data from dataframe into drawsvg2
 
 Saving chart...
 We want a command for "printing" or saving the chart, with options
-One of those options could be, at some point, a web page, by the way - with data loaded so it is dynamic
+One of those options could be, at some point, a web page, by the way - with data loaded so it is dynamic - svgdraw2 does this automatically
 We could also build a QtSVG viewer into the app in case user doesn't have a browser/app with which to view the SVG
