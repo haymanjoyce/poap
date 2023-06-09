@@ -16,6 +16,10 @@ Going to use drawsvg2 for this - covered in project journal
 Drawsvg2 also supports, with Cairo, outputs in all kinds of format
 So we want a command, with options, for generating the chart from the available data
 Need to think about most efficient way of doing this - can we read data straight from df or do we need to create dataclass/attrs objects to hold it before conversion to SVG?
+We also need to turn time into pixels and create scales; Pandas has support for creating data increments
+Do we prep all the data in the dataframe first or do the conversions in, for example, shape classes?
+Inclined to do everything in the dataframes first - so we take the human readable data and turn it into arbitrary units which we then convert to pixels at required scale
+This is clean and means we, in essence, compile in dataframes, then generate svg with min processing - good for animation if we need it
 
 Saving chart...
 We want a command for "printing" or saving the chart, with options
