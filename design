@@ -1,5 +1,3 @@
-So features we want...
-
 Data handling...
 Save to CSV, Excel, JSON, or Pickle (.pkl) (so any/all data can represented as any of these)
 Export named tables (format data only, chart data only, all) (default CSV), all tables (default Excel), chart settings (default JSON), tool settings (if different) (default JSON), everything (default .pkl)
@@ -11,7 +9,7 @@ Check imported data makes sense and reject it if not (try, except)
 This can be an option on loading back in or a standalone command
 
 Processing data...
-In this step we need to convert human readable data into arbitrary spatial units
+In this step we need to convert human readable data into arbitrary spatial units (geometry units)
 Pandas supports converting date ranges into increments
 We do all this conversion in Pandas - as much as possible and so minimise rendering time from Pandas to SVG
 We will need to consider scaling here too
@@ -29,3 +27,35 @@ Saving chart...
 We want a command for "printing" or saving the chart, with options
 One of those options could be, at some point, a web page, by the way - with data loaded so it is dynamic - svgdraw2 does this automatically
 We could also build a QtSVG viewer into the app in case user doesn't have a browser/app with which to view the SVG
+
+---
+
+IMPORT/EXPORT
+import and export projects to the db by using pandas (csv, excel, json)
+project meta-data such as default formats also stored in db
+we cannot edit the db directly; data is checked and cleaned in dfs on import
+we don't export the db itself - it's a .db file on the file system
+
+CONFIG
+json config file which includes tool settings/defaults (as opposed to project settings/defaults)
+and it will hold db/file location data and logins, etc.
+
+COMPILE
+we will need to turn project data into geometry units
+and convert (parse) formatting data into syntax that svgdraw2 understands
+and then build svg elements using geometry units and formatting data
+we will need a command for this (e.g. compile -project name -all projects)
+svgdraw2 handles svg elements as objects which then can output the svg
+the objects will be deleted at end of session
+any compilations (svg) can be stored in the db (n per project)
+we can pickle objects and store them in the db if this proves necessary
+we may want static, animated, and overlay compilations
+we may have different export formats - svg, mpeg, html (all drawsvg2 options)
+
+PRINT
+we can export the svg strings from the db as a file
+or open them in an app - like a browser
+the app could be a browser
+we could build our own browser in Qt
+or print them into PDF or png using Cairo or Ghostscript
+or to Jupyter Notebook
