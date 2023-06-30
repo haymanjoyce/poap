@@ -1,36 +1,41 @@
-DATA
-import and export projects to the db as dfs, using pandas (csv, excel, json)
+PROJECT DATA
+we handle the data as panda dfs
+we import and export as csv, xls, json, hdf5, pkl file formats (pandas makes this easy)
 dfs are checked and cleaned on import (e.g. using try and except statements)
-we don't export the db itself - it's a .db file on the file system
-we can import/export named tables (csv, excel, json) or current project (all tables) (excel, json)
-we have --option to export with or without formatting (i.e. meta) data
+we can import or export named or all tables
+we have option to export without formatting data
+we can apply active or baseline label to projects, which mainly effects formatting
 
 CONFIG
-json config file which includes tool settings/defaults (as opposed to project settings/defaults)
-and it will hold db/file location data and logins, etc.
+json config file for tool settings (holding file locations, for example)
+
+TEMPLATES
+hold template project files
+acts as reference for default project and format values where needed
+for example, we may want to create a project file formatted in default baseline formats
 
 COMPILE
-we will need to turn projects (containing project data) into geometry units
-note, Pandas supports converting date ranges into increments (so we may be pulling data from db to work on it)
-and convert formatting data into syntax that svgdraw2 understands
-we will need a command for this (e.g. compile)
-this complications can be added to the db as dfs
-the same project maybe compiled n formats (e.g. current or baseline)
-Note, in drawsvg2 scaling increases borders which we may not want as we will get border overlap/bleed
+we will need to turn project data into geometry units
+and convert formatting data into something drawsvg2 can read
+we can add this to the same df
+note, Pandas supports converting date ranges into increments
+we may need a command for this (e.g. compile)
+note, in drawsvg2 scaling increases borders which we may not want as we will get border bleed
 
 DRAW
-and then build svg elements using geometry units and prepared formatting data
-svgdraw2 handles svg elements as objects which then can output the svg
+and then build svg
+we may use more than one project file
+we may create drawing with active and baseline projects showing
+we may create animation out of several active projects
+svgdraw2 handles svg elements as objects which then output svg
 the objects will be deleted at end of session
-although, we can pickle objects and store them in the db if this proves necessary
-we may be using n compilations to build the drawings or animations (e.g. showing baselines, iterations, animation)
-we may have different export formats - svg, mpeg, html (all drawsvg2 options)
-so we might have command to draw with options about output format and what compilations to use
+so we will need commands to say what data to use and what drawing to create
+
+SAVE
+we can save the svg as an svg file
+or convert it into html, mpeg, png, pdf, etc.
+drawsvg2 supports this and my need Cairo and/or Ghostscript as dependencies
 
 VIEW
-we can export the svg strings from the db as a file
-or open them in an app - like a browser
-the app could be a browser
-we could build our own browser in QtSVG
-or print them into PDF or png using Cairo or Ghostscript
-or to Jupyter Notebook
+we may have command to open file in specific app (e.g. browser or Jupyter Notebook)
+we may create our own viewer using QtSVG
