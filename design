@@ -1,11 +1,11 @@
-PROJECT DATA
+PROJECT FILES
 we handle the data as panda dfs
 we import and export as csv, xls, json, hdf5, pkl file formats (pandas makes this easy)
 dfs are checked and cleaned on import (e.g. using try and except statements)
 we can import or export named or all tables
 we have option to export without formatting data
-we don't distinguish between active and baseline projects
-project files do not include baseline styling
+format data is just for active project by default
+additional option to export format data for baseline styling
 
 CONFIG
 json config file for tool settings (holding file locations, for example)
@@ -13,7 +13,6 @@ json config file for tool settings (holding file locations, for example)
 TEMPLATES
 hold template project files
 acts as reference for default project and format values where needed
-this may be where we store the baseline style guide, for example
 
 COMPILE
 we will need to turn project data into geometry units
