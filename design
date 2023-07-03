@@ -4,7 +4,8 @@ we import and export as csv, xls, json, hdf5, pkl file formats (pandas makes thi
 dfs are checked and cleaned on import (e.g. using try and except statements)
 we can import or export named or all tables
 we have option to export without formatting data
-we can apply active or baseline label to projects, which mainly effects formatting
+we don't distinguish between active and baseline projects
+project files do not include baseline styling
 
 CONFIG
 json config file for tool settings (holding file locations, for example)
@@ -12,7 +13,7 @@ json config file for tool settings (holding file locations, for example)
 TEMPLATES
 hold template project files
 acts as reference for default project and format values where needed
-for example, we may want to create a project file formatted in default baseline formats
+this may be where we store the baseline style guide, for example
 
 COMPILE
 we will need to turn project data into geometry units
@@ -25,7 +26,7 @@ note, in drawsvg2 scaling increases borders which we may not want as we will get
 DRAW
 and then build svg
 we may use more than one project file
-we may create drawing with active and baseline projects showing
+we may create drawing with multiple projects showing, one as active and n as baseline
 we may create animation out of several active projects
 svgdraw2 handles svg elements as objects which then output svg
 the objects will be deleted at end of session
