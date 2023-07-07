@@ -4,15 +4,18 @@ we import and export as csv, xls, json, hdf5, pkl file formats (pandas makes thi
 dfs are checked and cleaned on import (e.g. using try and except statements)
 we can import or export named or all tables
 we have option to export without formatting data
-format data is just for active project by default
-additional option to export format data for baseline styling
+format data is specific to rows (where custom overrides default)
+allows user to make small tweaks to fix things like overlapping text, or to highlight a task
 
 CONFIG
 json config file for tool settings (holding file locations, for example)
 
 TEMPLATES
-hold template project files
-acts as reference for default project and format values where needed
+template project file
+
+STYLE FILES
+json style files
+so you might have active project, baseline, and other types of style
 
 COMPILE
 we will need to turn project data into geometry units
