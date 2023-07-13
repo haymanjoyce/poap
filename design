@@ -2,7 +2,7 @@ These are design notes for CLI application that takes user-supplied project and 
 
 PROJECT FILES
 we handle the data as panda dfs
-we import and export as csv, xls, json, hdf5, pkl file formats (pandas makes this easy)
+we import and export as csv, xlsx, json, hdf5, pkl file formats (pandas makes this easy)
 dfs are checked and cleaned on import (e.g. using try and except statements)
 we can import or export named or all tables
 we have option to export without formatting data
@@ -47,42 +47,41 @@ we may create our own viewer using QtSVG
 
 ====
 
-For the development of the CLI application you described, here are some Python modules that you could consider using:
+Modules this application may use:
 
 pandas: For handling and manipulating data as dataframes.
 json: For working with JSON files, including configuration and style files.
 drawsvg2: A library for creating SVG drawings and handling SVG elements.
-matplotlib: A versatile plotting library that can be used for generating Gantt charts.
 click: A command-line interface (CLI) framework that simplifies building command-line applications.
 pathlib: For handling file paths and operations in a cross-platform manner.
-argparse: Another module for building command-line interfaces and parsing command-line arguments.
 pydantic: For data validation and modeling, especially useful for handling configuration files and input data.
 cairosvg: A library that allows converting SVG files to other formats like PNG, PDF, etc.
 PySide/PyQt: Libraries for creating graphical user interfaces (GUI) and custom viewers using Qt, which could be useful for the "VIEW" component.
-Additionally, you might need the following modules as dependencies for some of the libraries mentioned above:
-
 numpy: A library for numerical computations that pandas relies on.
 matplotlib-dates: An extension to matplotlib for handling dates and time in plotting.
 ghostscript: A library for working with PostScript and PDF files, which could be a dependency for generating PDF files from SVG.
-Remember to review the documentation and requirements of each library to determine if they meet your specific needs and compatibility requirements for your development environment.
+
+Modules this application may not use:
+
+matplotlib: A versatile plotting library that can be used for generating Gantt charts.  A common way to generate a Gantt chat is to create a horizontal bar chart with matplotlib.  But, with this method, it's hard to get more than one task per row, hard to control position of labels, and hard to add components (such as connectors) to this layout.  I'd prefer a custom module to generate the Gantt chart.
+argparse: Another module for building command-line interfaces and parsing command-line arguments.  Argparse is probably not necessary because click does the same job (at higher level of abstraction) which will, probably, be enough.
 
 ====
 
-Based on the application design you provided, here's a suggested file structure and a list of custom modules you could create:
-
-```
 app/
 ├── config/
-│   ├── config.json
+│   └── config.json
+├── styles/
 │   └── style.json
 ├── data/
-│   ├── input/
-│   │   ├── project_data.csv
-│   │   └── formatting_data.csv
-│   └── output/
-│       └── result.svg
+│   ├── table.csv
+│   └── project.xlsx
+├── svg/
+│   └── chart.svg
 ├── templates/
-│   └── template_project.csv
+│   └── template.csv
+├── scripts/
+│   └── script.sh
 ├── src/
 │   ├── __init__.py
 │   ├── compiler.py
@@ -94,37 +93,23 @@ app/
 │   ├── viewer.py
 │   └── utils.py
 └── requirements.txt
-```
 
-1. `config/`: Directory for storing configuration files.
-   - `config.json`: JSON file containing tool settings, such as file locations.
-   - `style.json`: JSON file containing different style configurations.
+table.csv - You can import and export data to/fom a named project.xlsx file using csv files.  This is in case you do not have MS Excel.  We will not use csv to load data into the df directly because there may be multiple project.xlsx files being used to create a chart.svg and it feels like over-complication.
+template.csv - Contains tables and fields required in project.xlsx. Might, instead, be template.xlsx, which is a spreadsheet populated with the required fields.
+script.sh - File that allows user to save and then run all the commands necessary to build a chart.svg, which may use several project.xlsx files in its construction.
+__init__.py - Empty file to mark the directory as a Python package.
+compiler.py - Module for compiling project data into geometry units and formatting data for drawsvg2.
+draw.py - Module for building SVG drawings using project data and styles.
+exporter.py - Module for handling import and export operations for various file formats using pandas.
+importer.py - Module for importing and cleaning data from different file formats using pandas.
+main.py - Module serves, mainly, as launch point for the application.  It is brief.
+cli.py - Main module to orchestrate the application flow and command-line interface using libraries like click.
+saver.py - Module for saving the generated SVG as different file formats using drawsvg2 and other dependencies.
+viewer.py - Module for creating a custom viewer using QtSVG or integrating with existing applications.
+utils.py - Module for utility functions and helper methods.
+requirements.txt - File specifying the Python dependencies required for the project.
 
-2. `data/`: Directory for storing input and output data files.
-   - `input/`: Directory for storing input data files.
-   - `output/`: Directory for storing generated output files.
-
-3. `templates/`: Directory for storing template files.
-   - `template_project.csv`: CSV file containing the required fields for the tool's template project.
-
-4. `src/`: Directory for storing custom Python modules.
-   - `__init__.py`: Empty file to mark the directory as a Python package.
-   - `compiler.py`: Module for compiling project data into geometry units and formatting data for drawsvg2.
-   - `draw.py`: Module for building SVG drawings using project data and styles.
-   - `exporter.py`: Module for handling import and export operations for various file formats using pandas.
-   - `importer.py`: Module for importing and cleaning data from different file formats using pandas.
-   - `main.py`: Main module to orchestrate the application flow and command-line interface using libraries like click.
-   - `saver.py`: Module for saving the generated SVG as different file formats using drawsvg2 and other dependencies.
-   - `viewer.py`: Module for creating a custom viewer using QtSVG or integrating with existing applications.
-   - `utils.py`: Module for utility functions and helper methods.
-
-5. `requirements.txt`: File specifying the Python dependencies required for the project.
-
-In this file structure, the `src` directory contains custom modules that handle different components of the application. Each module focuses on a specific functionality, such as importing/exporting, compilation, drawing, saving, viewing, and utility functions.
-
-You can add more modules or subdirectories as needed based on the complexity and organization of your application. Remember to adapt the file structure and module names to fit your specific needs and development preferences.
-
-=====
+====
 
 In the `utils.py` module, you can define various utility functions that can be used across different parts of your application. Here are some examples of the types of functions you might include:
 
@@ -152,4 +137,6 @@ In the `utils.py` module, you can define various utility functions that can be u
    - Utilities for generating unique identifiers or random values.
 
 Remember that the specific functions and classes in the `utils.py` module will depend on the specific requirements of your application and the common operations that need to be shared among other modules. It's a good practice to keep the utility functions focused, modular, and reusable to enhance the maintainability and readability of your codebase.
+
+====
 
