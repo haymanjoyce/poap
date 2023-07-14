@@ -1,23 +1,58 @@
-These are design notes for CLI application that takes user-supplied project and formatting data and generates an SVG that visualises this data as a Gantt chart which is intended for display on one piece of paper (i.e. a Plan on a Page) or slide.
+These are design notes for CLI application (herein referred to as "tool") that takes user-supplied project and formatting data and generates an SVG that visualises this data as a Gantt chart which is intended for display on one piece of paper (i.e. a Plan on a Page) or slide.
 
 PROJECT FILES
-we handle the data as panda dfs
-we import and export as csv, xlsx, json, hdf5, pkl file formats (pandas makes this easy)
-dfs are checked and cleaned on import (e.g. using try and except statements)
-we can import or export named or all tables
-we have option to export without formatting data
-format data is specific to rows (where custom overrides default)
-allows user to make small tweaks to fix things like overlapping text, or to highlight a task
+
+Project data is contained in files
+The user will need a spreadsheet to edit their data
+Common spreadsheet formats are xlsx, ods, xls, numbers, 123, etc.
+Pandas exports csv, xlsx, json, hdf5, and pkl
+We will export xlsx, by default
+json, hdf5, and pkl are not readable by spreadsheet applications
+
+csv can only export one table at a time
+We may give the user the option to export and import named tables as csv
+This means that they can still use the tool without a spreadsheet programme
+
+On import, project data is imported into a df (Pandas)
+The df will be checked and cleaned
+The tool will raise as errors and warnings as required
+The tool may apply fixes
+
+On export, if no df exists, a df will be created
+A template.csv file will contain the tables and fields needed to create the df
+We may have an explicit command to export a template and so the user can get a template whilst a populated df exists
+
+We may have an option to export a sample.xlsx file to show users sample data
+We may need an option to store a project as a sample
+This would simply save the current df to a local samples folder
+
+Project files contain some styling data
+Style data is specific to rows and lets the user override any default styling for a given row
+Users may want to make small adjustments to styling at this level of detail (like fixing overlapping text or highlighting a task)
+
+Project files will contain at least one table that contains project level data (e.g. project start date)
+Fields will be list vertically on this table
+We may give the user the ability to define table and project level styles on this table
+
+Style related fields are optional
+By default, project data is exported without style fields
+We may have an option that lets users specify style fields be included in the export
 
 CONFIG
-json config file for tool settings (holding file locations, for example)
+Container for json config file for tool settings (e.g. holding file locations)
 
 TEMPLATES
-template project file which contains all project and formatting fields required by the tool
+Container for template.csv file(s) which contains all project and formatting fields required by the tool
 
-STYLE FILES
-json style files
-so you might have active project, baseline, and other types of style that you want to apply to project data
+SAMPLES
+Container for sample.xlsx files
+
+STYLES
+Container for style files
+Style files hold default style data
+Styles may apply at the row, table, project or chart-level
+A given style file will tell the tool how to style all kinds of drawings (active project only, baselines, animations, etc.)
+Style files can be imported, stored, and exported as csv or json files
 
 COMPILE
 we will need to turn project data into geometry units
