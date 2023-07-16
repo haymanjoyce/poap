@@ -1,7 +1,7 @@
 import os
 
 import click
-import file
+from utils import filing
 
 
 @ click.group()
@@ -36,8 +36,8 @@ def add():
 
 @main.command()
 def load():
-    file_name = 'sample.csv'
-    file.read_file_csv(file_name)
+    file_name = '../samples/sample.csv'
+    filing.read_file_csv(file_name)
 
 
 @main.command()

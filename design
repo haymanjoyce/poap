@@ -1,4 +1,11 @@
-These are design notes for CLI application (herein referred to as "tool") that takes user-supplied project and styling data and generates an SVG that visualises this data as a Gantt chart which is intended for display on one piece of paper (i.e. a Plan on a Page) or slide.
+ABOUT
+
+This is a Python application (herein referred to as "tool") for creating Gantt charts.
+It is meant for professional project planners to use.
+Planners are asked, routinely, to produce detailed and engaging "Plans on a Page (POAP)" for project managers.
+This tool addresses this need.
+It generates vector graphics from data (there is no hand drawing involved).
+Users interact with the tool via a Command Line Interface (CLI).
 
 PROJECT FILES
 
@@ -166,6 +173,7 @@ app/
 │   ├── exporter.py
 │   ├── importer.py
 │   ├── main.py
+│   ├── commands.py
 │   ├── saver.py
 │   ├── viewer.py
 │   └── utils/
@@ -185,7 +193,7 @@ draw.py - Module for building SVG drawings using project data and styles.
 exporter.py - Module for handling import and export operations for various file formats using pandas.
 importer.py - Module for importing and cleaning data from different file formats using pandas.
 main.py - Module serves, mainly, as launch point for the application.  It is brief.
-cli.py - Main module to orchestrate the application flow and command-line interface using libraries like click.
+commands.py - Main module to orchestrate the application flow and command-line interface using libraries like click.
 saver.py - Module for saving the generated SVG as different file formats using drawsvg2 and other dependencies.
 viewer.py - Module for creating a custom viewer using QtSVG or integrating with existing applications.
 requirements.txt - File specifying the Python dependencies required for the project.
