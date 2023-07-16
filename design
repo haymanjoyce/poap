@@ -168,7 +168,12 @@ app/
 │   ├── main.py
 │   ├── saver.py
 │   ├── viewer.py
-│   └── utils.py
+│   └── utils/
+│       ├── cleaning.py
+│       ├── filing.py
+│       ├── styling.py
+│       ├── timings.py
+│       └── general.py
 └── requirements.txt
 
 table.csv - You can import and export data to/fom a named project.xlsx file using csv files.  This is in case you do not have MS Excel.  We will not use csv to load data into the df directly because there may be multiple project.xlsx files being used to create a chart.svg and it feels like over-complication.
@@ -183,12 +188,11 @@ main.py - Module serves, mainly, as launch point for the application.  It is bri
 cli.py - Main module to orchestrate the application flow and command-line interface using libraries like click.
 saver.py - Module for saving the generated SVG as different file formats using drawsvg2 and other dependencies.
 viewer.py - Module for creating a custom viewer using QtSVG or integrating with existing applications.
-utils.py - Module for utility functions and helper methods.
 requirements.txt - File specifying the Python dependencies required for the project.
 
 ====
 
-In the `utils.py` module, you can define various utility functions that can be used across different parts of your application. Here are some examples of the types of functions you might include:
+In the `utils folder there are utility modules containing functions across the application (tool):
 
 1. Data Cleaning and Validation:
    - Functions for cleaning and validating data, such as removing duplicates, handling missing values, or checking data integrity.
@@ -212,8 +216,6 @@ In the `utils.py` module, you can define various utility functions that can be u
    - Helper functions that perform common operations, such as data filtering, sorting, or merging.
    - Functions for logging, error handling, or displaying progress indicators.
    - Utilities for generating unique identifiers or random values.
-
-Remember that the specific functions and classes in the `utils.py` module will depend on the specific requirements of your application and the common operations that need to be shared among other modules. It's a good practice to keep the utility functions focused, modular, and reusable to enhance the maintainability and readability of your codebase.
 
 ====
 
