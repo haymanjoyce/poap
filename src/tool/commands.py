@@ -1,7 +1,5 @@
-import os
-
 import click
-from utils import filing
+from src.utils import filing
 
 
 @ click.group()
@@ -22,9 +20,9 @@ def main(meta, shared):
 @click.pass_context
 def test(meta, argument, opt):
     if opt is None:
-        opt = meta.obj
+        opt = 'No option'
     print(f'arg: {argument}, opt: {opt}, meta: {meta.obj}')
-    print(os.environ)
+    # print(os.environ)
 
 
 @main.command()
@@ -36,7 +34,7 @@ def add():
 
 @main.command()
 def load():
-    file_name = '../samples/sample.csv'
+    file_name = '../../samples/sample.csv'
     filing.read_file_csv(file_name)
 
 
