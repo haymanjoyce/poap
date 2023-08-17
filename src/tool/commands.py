@@ -1,5 +1,5 @@
 import click
-from src.utils import filing
+from src.utils import file_handling
 
 
 @ click.group()
@@ -35,7 +35,7 @@ def add():
 @main.command()
 def load():
     file_name = '../../samples/sample.csv'
-    filing.read_file_csv(file_name)
+    file_handling.read_file_csv(file_name)
 
 
 @main.command()
