@@ -25,7 +25,7 @@ A user importing a csv, in this case, does not need to need to name a table
 
 On import, project data is imported into a df (Pandas)
 The df will be checked and cleaned
-The tool will raise as errors and warnings as required
+The tool will raise errors and warnings as required
 The tool may apply fixes
 
 On export, if no df exists, a df will be created
@@ -197,6 +197,7 @@ commands.py - Main module to orchestrate the application flow and command-line i
 saver.py - Module for saving the generated SVG as different file formats using drawsvg2 and other dependencies.
 viewer.py - Module for creating a custom viewer using QtSVG or integrating with existing applications.
 requirements.txt - File specifying the Python dependencies required for the project.
+tool.py - Allows developer to access commands from parent directory
 
 ====
 
