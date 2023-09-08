@@ -228,3 +228,14 @@ In the `utils folder there are utility modules containing functions across the a
 
 ====
 
+PACKAGES
+
+It is convention to put packages in folder called src (it is a folder, not a package)
+It is convention to only have one package in that folder
+I have removed subpackages from that folder but, if they existed, ypu would put __main__ in a main package
+So you tools package may contain, for example, two subpackages: main and utils
+You navigate to packages with dot notation (i.e. ".", "..")
+
+ENTRY POINT
+
+When using commands in development, without deploying app, you...

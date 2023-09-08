@@ -1,8 +1,5 @@
 import click
 
-import commands
-from src.utils import file_handling
-
 
 @click.command("hello")
 def hello():
