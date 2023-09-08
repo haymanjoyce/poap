@@ -238,4 +238,5 @@ You navigate to packages with dot notation (i.e. ".", "..")
 
 ENTRY POINT
 
-When using commands in development, without deploying app, you...
+When using commands in development, without deploying app, you must navigate to entry point directory and treat tool package as entry module (python -m tool)
+When deployed, the .toml file puts entry point on PYTHONPATH I think
