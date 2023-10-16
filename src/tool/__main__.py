@@ -1,10 +1,15 @@
+# __main__.py
+
 import click
 
-
-@click.command("hello")
-def hello():
-    click.echo("hello")
+from . import commands
 
 
-if __name__ == "__main__":
-    hello()
+@click.group()
+def cli():
+    pass
+
+
+cli.add_command(commands.hello)
+
+print("worked")
