@@ -240,3 +240,5 @@ ENTRY POINT
 
 When using commands in development, without deploying app, you must navigate to entry point directory and treat tool package as entry module (python -m tool)
 When deployed, the .toml file puts entry point on PYTHONPATH I think
+I have switch from pyproject.toml to setup.py because that is what the Click docs recommend
+

@@ -4,6 +4,7 @@ import click
 
 from typing import Any
 
+
 @click.command()
 def hello():
     click.echo('hello')
