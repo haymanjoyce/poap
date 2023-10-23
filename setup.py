@@ -19,7 +19,7 @@ setup(
     ],
     entry_points={
         'console_scripts': [
-            'tool = tool:cli',
+            'tool = src.tool:cli',
         ],
     },
 )
