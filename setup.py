@@ -19,7 +19,7 @@ setup(
     ],
     entry_points={
         'console_scripts': [
-            'tool = src.tool.__main__:cli',
+            'tool = src.tool.__main__.py:cli',
         ],
     },
 )
