@@ -14,3 +14,4 @@ cli.add_command(commands.hello)
 cli.add_command(commands.goodbye)
 
 cli()
+
