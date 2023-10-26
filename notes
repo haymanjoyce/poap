@@ -1,10 +1,26 @@
-PACKAGING
+PACKAGES
 
-It is convention to put packages in folder called src (it is a folder, not a package)
-It is convention to only have one package in that folder
-I have removed subpackages from that folder but, if they existed, ypu would put __main__ in a main package
-So you tools package may contain, for example, two subpackages: main and utils
-You navigate to packages with dot notation (i.e. ".", "..")
+src
+tests
+
+It is convention to put packages in folder called src and for src to contain only one package
+Src is a folder (not a package) but my editor has automatically made it into a package (by applying an __init__.py file)
+Src contains tool (the main package)
+
+FOLDERS
+
+data
+    workbooks
+    dataframes
+    templates
+    styles
+
+charts
+    SVGs
+    PDFs
+    images
+
+scripts
 
 ENTRY POINT
 
@@ -12,49 +28,55 @@ When using commands in development, without deploying app, you must navigate to 
 When deployed, the .toml file puts entry point on PYTHONPATH I think
 I have switch from pyproject.toml to setup.py because that is what the Click docs recommend
 
-
-
-ABOUT
-
-This is a Python application (herein referred to as "tool") for creating Gantt charts.
-It is meant for professional project planners to use.
-Planners are asked, routinely, to produce detailed and engaging "Plans on a Page (POAP)" for project managers.
-This tool addresses this need.
-It generates vector graphics from data (there is no hand drawing involved).
-Users interact with the tool via a Command Line Interface (CLI).
-
-PROJECT FILES
+WORKBOOKS
 
 Project data is contained in files
 The user will need a spreadsheet to edit their data
 Common spreadsheet formats are xlsx, ods, xls, numbers, 123, etc.
-Pandas exports csv, xlsx, json, hdf5, and pkl
-We will export xlsx, by default
-json, hdf5, and pkl are not readable by spreadsheet applications
+Pandas handles csv, xlsx, json, hdf5, and pkl
+We will export data as xlsx (json, hdf5, and pkl are not readable by spreadsheet applications)
+We will import data as xlsx (csv can only hold one table at a time and each workbook will have many)
 
-csv can only export one table at a time
-We may give the user the option to export and import named tables using csv format
-This means that they can still use the tool without a spreadsheet programme
+DATAFRAMES
 
-Or users can use csvs but they are more limited, only holding basic project data
-A user importing a csv, in this case, does not need to need to name a table
-
-On import, project data is imported into a df (Pandas)
+On import, project data is imported into a df (Pandas dataframe)
 The df will be checked and cleaned
 The tool will raise errors and warnings as required
 The tool may apply fixes
+We can run calculations on the data - preparing it for parsing into SVG
+We can export the dataframe as Excel or save it in Excel or other formats
+We may leave default dfs in the folder such as template and sample
 
-On export, if no df exists, a df will be created
+TEMPLATES
+
+We can export an empty workbook
+The templates folder contains template files (csv, for example)
 A template.csv file will contain the tables and fields needed to create the df
-We may have an explicit command to export a template and so the user can get a template whilst a populated df exists
+The df is built from the template.csv
+Then we export the df as an xlsx
 
-We may have an option to export a sample.xlsx file to show users sample data
-We may need an option to store a project as a sample
-This would simply save the current df to a local samples folder
+STYLES
 
-Project files contain some styling data
-Style data in project files is specific to rows and lets the user override any default styling for a given row
+Workbook contain some styling data
+Style data in workbooks is specific to rows and lets the user override any default styling for a given row
 Users may want to make small adjustments to styling at this level of detail (like fixing overlapping text or highlighting a task)
+For default styling, the df contains this information
+It references style files kept in styles folder
+
+SVGs
+
+We can parse dataframe data into SVG chart
+We can parse a dataframe as a baseline or current project
+
+PDFs
+
+
+IMAGES
+
+SCRIPTS
+
+
+===
 
 Project files will contain at least one table that contains project level data (e.g. project start date)
 Fields will be list vertically on this table
@@ -246,3 +268,11 @@ In the `utils folder there are utility modules containing functions across the a
 
 
 
+GUIs
+
+Eventually might create GUI as alternative to spreadsheet
+Could directly manipulate data in dataframe via this GUI
+
+Might create custom SVG viewer
+
+Might create GUI as alternative to command line
