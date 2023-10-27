@@ -1,13 +1,11 @@
-PACKAGES
+PACKAGES, FOLDERS, FILES
+
+Packages are:
 
 src
 tests
 
-It is convention to put packages in folder called src and for src to contain only one package
-Src is a folder (not a package) but my editor has automatically made it into a package (by applying an __init__.py file)
-Src contains tool (the main package)
-
-FOLDERS
+Folders are:
 
 data
     workbooks
@@ -19,151 +17,106 @@ charts
     SVGs
     PDFs
     images
+    animations
 
 scripts
 
-ENTRY POINT
+Root level files are:
+
+.gitignore
+LICENSE
+log
+notes
+README
+requirements
+setup
+settings - json file for tool settings (e.g. holding file locations)
+
+Notes:
+
+It is convention to put packages in a folder called src and for src to contain only one package
+Src is a folder (not a package) but my editor has automatically made it into a package (by applying an __init__.py file)
+Src contains "tool" (the main package)
 
 When using commands in development, without deploying app, you must navigate to entry point directory and treat tool package as entry module (python -m tool)
 When deployed, the .toml file puts entry point on PYTHONPATH I think
-I have switch from pyproject.toml to setup.py because that is what the Click docs recommend
+I have switched from pyproject.toml to setup.py because that is what the Click docs recommend
 
 WORKBOOKS
 
-Project data is contained in files
-The user will need a spreadsheet to edit their data
+The user enters and manipulates project data in Excel workbooks (using the Excel spreadsheet app)
 Common spreadsheet formats are xlsx, ods, xls, numbers, 123, etc.
 Pandas handles csv, xlsx, json, hdf5, and pkl
-We will export data as xlsx (json, hdf5, and pkl are not readable by spreadsheet applications)
-We will import data as xlsx (csv can only hold one table at a time and each workbook will have many)
+The spreadsheet formats that we can use are limited by what Pandas can handle
+CSV is not suitable as it can only handle one table a time and the tool uses many
+We can put sample workbooks in workbooks folder
+We can run checks on workbook data before importing it
+Eventually might create GUI as alternative to spreadsheet (enabling direct manipulation of df via this GUI)
 
 DATAFRAMES
 
 On import, project data is imported into a df (Pandas dataframe)
-The df will be checked and cleaned
-The tool will raise errors and warnings as required
-The tool may apply fixes
-We can run calculations on the data - preparing it for parsing into SVG
-We can export the dataframe as Excel or save it in Excel or other formats
-We may leave default dfs in the folder such as template and sample
+Dfs are like the app database
+Dfs cannot be directly manipulated by the user
+They contain project data, geometry units, meta-data, etc.
+There is only one project dataset per dataframe
+On import, the tool will raise errors and warnings as required
+We can run calculations on the data - preparing it for parsing into SVG (as current or baseline, for example)
+We can export selected data from the df as xlsx
+Dfs will be linked to workbooks and so we know whether to update an existing df or create a new one
+We can display dfs as tables using various Pandas GUI apps (if not Excel)
+(Note, Pandas supports converting date ranges into increments)
+(Note, in drawsvg2 scaling increases borders which we may not want as we will get border bleed)
+May switch from dfs to db in future
 
 TEMPLATES
 
-We can export an empty workbook
-The templates folder contains template files (csv, for example)
-A template.csv file will contain the tables and fields needed to create the df
-The df is built from the template.csv
-Then we export the df as an xlsx
+The templates folder contains template files (csv or json, for example)
+A template file will contain the tables and fields needed to create dfs and workbooks (i.e. schemas)
+Template files can be used to check existing workbook and df structure
+For example, there could be a template for creating a workbook with basic project data only or another which includes styling data
 
 STYLES
 
-Workbook contain some styling data
-Style data in workbooks is specific to rows and lets the user override any default styling for a given row
-Users may want to make small adjustments to styling at this level of detail (like fixing overlapping text or highlighting a task)
-For default styling, the df contains this information
-It references style files kept in styles folder
+Dfs reference the styles folder for default styles (i.e. formatting)
+Users can override selected styling data
+Style overrides are stored in the df (or the workbook form the user perspective)
+We may allow users to create and/or edit their own default style files
 
 SVGs
 
-We can parse dataframe data into SVG chart
-We can parse a dataframe as a baseline or current project
-
-PDFs
-
-
-IMAGES
-
-SCRIPTS
-
-
-===
-
-Project files will contain at least one table that contains project level data (e.g. project start date)
-Fields will be list vertically on this table
-We may give the user the ability to define table and project level styles on this table
-
-Style related fields are optional
-By default, project data is exported without style fields
-We may have an option that lets users specify style fields be included in the export
-
-It is assumed that project files are stored non-locally
-A local Projects folder will probably only be used for development purposes
-
-CONFIG
-Container for json config file for tool settings (e.g. holding file locations)
-
-TEMPLATES
-Container for template.csv file(s) which contains all project and formatting fields required by the tool
-
-SAMPLES
-Container for sample.xlsx files
-
-STYLES
-Container for style files
-Style files hold default style data
-Styles may apply at the row, table, project or chart-level
-Note, a given project may be presented as the active project, a baseline, or an increment in an animation
-A style file will contain style data for all these variants
-Style files can be imported, stored, and exported as csv or json files
-
-COMPILE
-We will need to turn project data into geometry units
-And convert style data into something drawsvg2 can read
-And add meta-data (for example, project file used, dates, style file used, compilation iteration, etc.)
-This additional data is added to the df (probably using additional tables)
-Note, the style data will be prepared for all possible renderings (active project, baseline, animation increment), although not all may be used in the creation of a drawing
-We may need a command for this operation (e.g. compile)
-We may need an option that lets the user define which style file to use
-(Note, Pandas supports converting date ranges into increments)
-(Note, in drawsvg2 scaling increases borders which we may not want as we will get border bleed)
-
-COMPILATIONS
-Compiled dfs may be stored in a local folder and so they are readily available for the drawing operation
-A given project may be compiled in multiple styles
-And so we might have multiple dfs for a given project file
-It makes sense to store these dfs and so they are readily available for the drawing operation
-They may be stored locally
-We may provide an option to store them non-locally
-Filenames will be autogenerated
-Users can query df meta-data to find out about a given compilation
-The dfs are not meant to be human-readable and so can be stored in other formats besides csv and xlsx
-json, hdf5, and pkl are good file format candidates
-
-DRAW
-We will need to draw the svg
-We will parse the df(s) data into drawsvg2 API
-We may use n compilations
-We may need to define how to use the compilation
-By default, the compilation will be used to draw the active project
-We may need to instruct the tool to use other compilations to construct baseline(s) or animations
+We can parse single or multiple dataframes into SVG drawings
+We may parse one dataframe as the current project and another as a baseline
+We may want to create an animated SVG from many dataframes
+We will probably use drawsvg2
 svgdraw2 handles svg elements as objects which then output svg
 The objects will be deleted at end of a given drawing operation
 We may need to provide additional arguments (such as framerate, in the case of animations)
+Like dfs, SVGs may contain extensive metadata and so users can easily query them
+We may have command to open an SVG in a specific app (e.g. browser or Jupyter Notebook)
+We may create our own viewer (GUI) using QtSVG
+
+PDFs
+
+We can convert SVGs into PDFs
+We may need Ghostscript for this
+These are stored in the app folder by default but the user can save to a folder of their choice
+
+IMAGES
+
+We can convert SVGs into raster images (png, fig, tif, etc.)
+We probably need Cairo for this, which is not a Python package (and so it will need to be loaded onto the OS)
+
+ANIMATIONS
+
+drawsvg2 supports animation
 
 SCRIPTS
-The instructions for creating a drawing could be extensive
-We can use shell scripts to save users re-typing long commands
-We can have a local folder which contains script.sh files
-We will need a command to use a script and an argument stating which script to use
 
-DRAWINGS
-svgs can saved to a folder of drawings
-There may be a lof of drawings
-Drawings may be saved with extensive metadata and so users can easily query them
-We may want a command to export the svg from a local to non-local folder (such as the user's desktop)
+Simple SVGs which reference only one df will be simple enough to create using command line
+However, we have [shell] scripts folder in case commands get long (for example, creating an animation referencing many dfs)
 
-CONVERSION
-svg files can be viewed in most browsers however users may want other options
-we will need a command for exporting an svg in different formats (e.g. html, mpeg, png, pdf)
-drawsvg2 supports this and my need Cairo and/or Ghostscript as dependencies
-
-VIEWING
-we may have command to open a svg file in a specific app (e.g. browser or Jupyter Notebook)
-we may create our own viewer using QtSVG
-
-====
-
-Modules this application may use:
+DEPENDENCIES
 
 pandas: For handling and manipulating data as dataframes.
 json: For working with JSON files, including configuration and style files.
@@ -177,102 +130,16 @@ numpy: A library for numerical computations that pandas relies on.
 matplotlib-dates: An extension to matplotlib for handling dates and time in plotting.
 ghostscript: A library for working with PostScript and PDF files, which could be a dependency for generating PDF files from SVG.
 
-Modules this application may not use:
+MODULES
 
-matplotlib: A versatile plotting library that can be used for generating Gantt charts.  A common way to generate a Gantt chat is to create a horizontal bar chart with matplotlib.  But, with this method, it's hard to get more than one task per row, hard to control position of labels, and hard to add components (such as connectors) to this layout.  I'd prefer a custom module to generate the Gantt chart.
-argparse: Another module for building command-line interfaces and parsing command-line arguments.  Argparse is probably not necessary because click does the same job (at higher level of abstraction) which will, probably, be enough.
-
-====
-
-app/
-├── config/
-│   └── config.json
-├── styles/
-│   └── style.json
-├── projects/
-│   ├── project.csv
-│   └── project.xlsx
-├── templates/
-│   └── template.csv
-├── samples/
-│   └── sample.xlsx
-├── scripts/
-│   └── script.sh
-├── compilations/
-│   └── compilation.pkl
-├── drawings/
-│   └── drawing.svg
-├── conversions/
-│   └── conversion.png
-├── src/
-│   ├── __init__.py
-│   ├── compiler.py
-│   ├── draw.py
-│   ├── exporter.py
-│   ├── importer.py
-│   ├── main.py
-│   ├── commands.py
-│   ├── saver.py
-│   ├── viewer.py
-│   └── utils/
-│       ├── cleaning.py
-│       ├── filing.py
-│       ├── styling.py
-│       ├── timings.py
-│       └── general.py
-└── requirements.txt
-
-table.csv - You can import and export data to/fom a named project.xlsx file using csv files.  This is in case you do not have MS Excel.  We will not use csv to load data into the df directly because there may be multiple project.xlsx files being used to create a chart.svg and it feels like over-complication.
-template.csv - Contains tables and fields required in project.xlsx. Might, instead, be template.xlsx, which is a spreadsheet populated with the required fields.
-script.sh - File that allows user to save and then run all the commands necessary to build a chart.svg, which may use several project.xlsx files in its construction.
-__init__.py - Empty file to mark the directory as a Python package.
-compiler.py - Module for compiling project data into geometry units and formatting data for drawsvg2.
-draw.py - Module for building SVG drawings using project data and styles.
-exporter.py - Module for handling import and export operations for various file formats using pandas.
-importer.py - Module for importing and cleaning data from different file formats using pandas.
-main.py - Module serves, mainly, as launch point for the application.  It is brief.
-commands.py - Main module to orchestrate the application flow and command-line interface using libraries like click.
-saver.py - Module for saving the generated SVG as different file formats using drawsvg2 and other dependencies.
-viewer.py - Module for creating a custom viewer using QtSVG or integrating with existing applications.
-requirements.txt - File specifying the Python dependencies required for the project.
-tool.py - Allows developer to access commands from parent directory
-
-====
-
-In the `utils folder there are utility modules containing functions across the application (tool):
-
-1. Data Cleaning and Validation:
-   - Functions for cleaning and validating data, such as removing duplicates, handling missing values, or checking data integrity.
-   - Functions to validate the structure and content of the imported data.
-   - Utilities for converting data types, handling date formats, or applying custom data transformations.
-
-2. File Handling and Path Operations:
-   - Functions to handle file operations, such as checking file existence, creating directories, or deleting files.
-   - Utilities for manipulating file paths, joining paths, or resolving file extensions.
-
-3. Formatting and Styling:
-   - Functions for applying formatting rules to the project data, such as adjusting row heights, handling overlapping text, or highlighting specific tasks.
-   - Utilities for parsing and applying style configurations from the style files.
-   - Functions for converting formatting data into a format compatible with the drawing component.
-
-4. Date and Time Manipulation:
-   - Functions for working with date ranges, calculating date increments, or formatting dates according to specific requirements.
-   - Utilities for converting date formats, handling time zones, or performing date-related calculations.
-
-5. General Utilities:
-   - Helper functions that perform common operations, such as data filtering, sorting, or merging.
-   - Functions for logging, error handling, or displaying progress indicators.
-   - Utilities for generating unique identifiers or random values.
-
-====
-
-
-
-GUIs
-
-Eventually might create GUI as alternative to spreadsheet
-Could directly manipulate data in dataframe via this GUI
-
-Might create custom SVG viewer
-
-Might create GUI as alternative to command line
+commands.py - contains all the CLI commands (may create GUI in future)
+compile.py - converts project data into data that is usable by draw module (e.g. geometry units)
+draw.py - parses df data into svg
+import.py - for importing data
+check.py - for checking workbooks
+clean.py - for cleaning dfs (cannot clean workbooks)
+export.py - for exporting data, typically, as workbook
+print.py - for converting svg into pdfs or handling print devices
+image.py - for creating raster images
+animate.py - for creating animations
+utils.py - tools for file handling and other things like helper functions
