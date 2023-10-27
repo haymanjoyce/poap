@@ -2,35 +2,35 @@ PACKAGES, FOLDERS, FILES
 
 Packages are:
 
-src
-tests
+    src
+    tests
 
 Folders are:
 
-data
-    workbooks
-    dataframes
-    templates
-    styles
+    data
+        workbooks
+        dataframes
+        templates
+        styles
 
-charts
-    SVGs
-    PDFs
-    images
-    animations
+    charts
+        SVGs
+        PDFs
+        images
+        animations
 
-scripts
+    scripts
 
 Root level files are:
 
-.gitignore
-LICENSE
-log
-notes
-README
-requirements
-setup
-settings - json file for tool settings (e.g. holding file locations)
+    .gitignore
+    LICENSE
+    log
+    notes
+    README
+    requirements
+    setup.py - for getting the tool ready for use (in a Python environment)
+    settings - json file for tool settings (e.g. holding file locations)
 
 Notes:
 
