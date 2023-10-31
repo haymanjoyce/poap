@@ -30,7 +30,7 @@ Root level files are:
     README
     requirements
     setup.py - for getting the tool ready for use (in a Python environment)
-    settings - json file for tool settings (e.g. holding file locations)
+    config - json file for tool configuration (e.g. holding file locations)
 
 Notes:
 
@@ -48,14 +48,14 @@ The user enters and manipulates project data in Excel workbooks (using the Excel
 Common spreadsheet formats are xlsx, ods, xls, numbers, 123, etc.
 Pandas handles csv, xlsx, json, hdf5, and pkl
 The spreadsheet formats that we can use are limited by what Pandas can handle
-CSV is not suitable as it can only handle one table a time and the tool uses many
+CSV may not be suitable as it can only handle one table a time and the tool uses many
 We can put sample workbooks in workbooks folder
 We can run checks on workbook data before importing it
 Eventually might create GUI as alternative to spreadsheet (enabling direct manipulation of df via this GUI)
 
 DATAFRAMES
 
-On import, project data is imported into a df (Pandas dataframe)
+On import, project data is imported into dfs (Pandas dataframes)
 Dfs are like the app database
 Dfs cannot be directly manipulated by the user
 They contain project data, geometry units, meta-data, etc.
