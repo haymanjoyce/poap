@@ -8,16 +8,9 @@ Packages are:
 Folders are:
 
     data
-        workbooks
         dataframes
         templates
         styles
-
-    charts
-        SVGs
-        PDFs
-        images
-        animations
 
     scripts
 
@@ -39,7 +32,7 @@ Src is a folder (not a package) but my editor has automatically made it into a p
 Src contains "tool" (the main package)
 
 When using commands in development, without deploying app, you must navigate to entry point directory and treat tool package as entry module (python -m tool)
-When deployed, the .toml file puts entry point on PYTHONPATH I think
+When deployed, the .toml file puts entry point on PYTHONPATH I think (and the command is simply "tool")
 I have switched from pyproject.toml to setup.py because that is what the Click docs recommend
 
 WORKBOOKS
@@ -49,9 +42,16 @@ Common spreadsheet formats are xlsx, ods, xls, numbers, 123, etc.
 Pandas handles csv, xlsx, json, hdf5, and pkl
 The spreadsheet formats that we can use are limited by what Pandas can handle
 CSV may not be suitable as it can only handle one table a time and the tool uses many
-We can put sample workbooks in workbooks folder
-We can run checks on workbook data before importing it
+The user decides where workbooks are stored (there is no workbook folder in the app's folder structure)
+We can run checks (structure and/or data) on workbooks
 Eventually might create GUI as alternative to spreadsheet (enabling direct manipulation of df via this GUI)
+We can export xlsx from the current dataframe (df)
+We can exclude some or all formatting data in the export
+By default, we exclude all calculated or derived data (i.e. all the data needed to parse svg)
+We can export a blank xlsx or set of csvs (i.e. a template)
+Templates are built with reference to the template file and not the current dataframe
+We can export a single dataframe as a csv or a workbook with one sheet in it (we need to name the sheet (same thing as df or table))
+There are many template files because we want to keep a record of changes to template in case the user uses an old structure
 
 DATAFRAMES
 
@@ -59,15 +59,14 @@ On import, project data is imported into dfs (Pandas dataframes)
 Dfs are like the app database
 Dfs cannot be directly manipulated by the user
 They contain project data, geometry units, meta-data, etc.
-There is only one project dataset per dataframe
-On import, the tool will raise errors and warnings as required
+Each dataframe corresponds to a sheet in the workbook
+The tool does not keep old dataframes but the current set can be exported (pkl)
 We can run calculations on the data - preparing it for parsing into SVG (as current or baseline, for example)
-We can export selected data from the df as xlsx
-Dfs will be linked to workbooks and so we know whether to update an existing df or create a new one
+Dfs may be linked to workbooks and so we know whether to update an existing df or create a new one
 We can display dfs as tables using various Pandas GUI apps (if not Excel)
 (Note, Pandas supports converting date ranges into increments)
 (Note, in drawsvg2 scaling increases borders which we may not want as we will get border bleed)
-May switch from dfs to db in future
+May switch from dfs to db in future (which would retain project and version history)
 
 TEMPLATES
 

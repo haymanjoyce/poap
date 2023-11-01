@@ -13,12 +13,18 @@ def goodbye():
     click.echo('goodbye')
 
 
-@click.command()
-@click.option('--type', '-t', 'type_', default='excel', type=click.STRING, help="Accepted file types are 'excel', 'pdf', or 'png'.")
-@click.option('--blank', '-b', is_flag=True, default=False)
-def export(type_, blank):
+@click.command(name='export')
+@click.option('--type', '-t', 'type_', default='xlsx', type=click.Choice(['xlsx', 'csv', 'pdf', 'png', 'pkl'], case_sensitive=False))
+@click.option('--blank', '-b', is_flag=True, default=False, help="Gives you a blank template (xlsx only).")
+@click.option('--sheet', '-s', 'sheet', type=click.STRING, default='all', help="Name a table (else exports all of them).")
+def export(type_, blank, sheet):
     click.echo(blank)
     click.echo(type_)
+    click.echo(sheet)
+
+
+def open_():
+    pass
 
 
 if __name__ == '__main__':
