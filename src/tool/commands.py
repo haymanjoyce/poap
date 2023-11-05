@@ -5,9 +5,10 @@ from . import HOME
 from datetime import datetime
 
 
-@click.command()
-def import_():
-    pass
+@click.command(name='import')
+@click.option('--check', '-c', default=True, help="Checks document content before import.")
+def import_(check):
+    click.echo(check)
 
 
 @click.command(name='export')
@@ -16,18 +17,16 @@ def import_():
 @click.option('--location', '-l', 'location', type=click.STRING, default=HOME, show_default=True)
 @click.option('--blank', '-b', is_flag=True, default=False, help="Gives you a blank template (xlsx only).")
 @click.option('--sheet', '-s', 'sheet', type=click.STRING, default='all', show_default=True)
-def export(type_, blank, sheet, location, name):
+@click.option('--meta', '-m', 'meta', type=click.Choice(['none', 'some', 'all'], case_sensitive=False), default='none', show_default=True, help="Meta-data options.")
+def export(type_, blank, sheet, location, name, meta):
     click.echo(blank)
     click.echo(type_)
     click.echo(sheet)
     click.echo(location)
     click.echo(name)
+    click.echo(meta)
 
 
-def open_():
-    pass
-
-
-def close():
+def list_():
     pass
 
