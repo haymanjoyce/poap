@@ -6,13 +6,8 @@ from datetime import datetime
 
 
 @click.command()
-def hello():
-    click.echo('hello')
-
-
-@click.command()
-def goodbye():
-    click.echo('goodbye')
+def import_():
+    pass
 
 
 @click.command(name='export')
@@ -33,5 +28,6 @@ def open_():
     pass
 
 
-if __name__ == '__main__':
-    hello()
+def close():
+    pass
+

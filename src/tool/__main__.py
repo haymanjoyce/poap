@@ -1,7 +1,6 @@
 # __main__.py
 
 import click
-
 from . import commands
 
 
@@ -10,8 +9,6 @@ def cli():
     pass
 
 
-cli.add_command(commands.hello)
-cli.add_command(commands.goodbye)
 cli.add_command(commands.export)
 
 cli()
