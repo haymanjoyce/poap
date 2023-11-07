@@ -27,6 +27,26 @@ def export(type_, blank, sheet, location, name, meta):
     click.echo(meta)
 
 
+@click.command(name="list")
+# list folders with sort and filter options
 def list_():
+    pass
+
+
+@click.command(name="open")
+# open in read or write mode
+def open_():
+    pass
+
+
+@click.command(name="close")
+# close a file with options to save and save as
+def close():
+    pass
+
+
+@click.command(name="run")
+# run a script for example
+def run():
     pass
 
