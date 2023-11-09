@@ -109,6 +109,7 @@ We probably need Cairo for this, which is not a Python package (and so it will n
 ANIMATIONS
 
 drawsvg2 supports animation
+Data for a a frame my be kept in the workbook or df (uncertain)
 
 SCRIPTS
 

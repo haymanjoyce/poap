@@ -13,7 +13,7 @@ def import_(check):
 
 @click.command(name='export')
 @click.option('--name', '-n', 'name', type=click.STRING, default=f"export_{datetime.now().strftime("%Y%m%d_%H%M%S")}", show_default=True)
-@click.option('--type', '-t', 'type_', default='xlsx', show_default=False, type=click.Choice(['xlsx', 'csv', 'pdf', 'png', 'pkl'], case_sensitive=False))
+@click.option('--type', '-t', 'type_', default='xlsx', show_default=False, type=click.Choice(['xlsx', 'csv', 'json', 'svg', 'pdf', 'png', 'pkl'], case_sensitive=False))
 @click.option('--location', '-l', 'location', type=click.STRING, default=HOME, show_default=True)
 @click.option('--blank', '-b', is_flag=True, default=False, help="Gives you a blank template (xlsx only).")
 @click.option('--sheet', '-s', 'sheet', type=click.STRING, default='all', show_default=True)
@@ -34,7 +34,7 @@ def list_():
 
 
 @click.command(name="open")
-# open in read or write mode
+# open in read or write mode (svgs, json, csv)
 def open_():
     pass
 
