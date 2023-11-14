@@ -8,6 +8,7 @@ Packages are:
 Folders are:
 
     data
+        workbooks
         dataframes
         templates
         styles
