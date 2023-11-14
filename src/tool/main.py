@@ -1,7 +1,7 @@
 # __main__.py
 
 import click
-from . import commands
+import commands
 
 
 @click.group()
@@ -14,5 +14,6 @@ cli.add_command(commands.import_)
 cli.add_command(commands.export)
 
 
-cli()
+if __name__ == "__main__":
+    cli()
 

@@ -1,9 +1,13 @@
 # commands.py
 
 import click
-from . import HOME
 from datetime import datetime
-from . import export
+from export import THING, blank_
+
+
+from pathlib import Path
+
+HOME = str(Path.home())
 
 
 def thingy():
@@ -15,7 +19,7 @@ class Grand:
         self.bla = bla
 
 
-print(export.THING)
+print(THING)
 GLOBAL_THING = 'global_thing'
 
 
@@ -45,13 +49,14 @@ def export(context, type_, blank, sheet, location, name, meta):
         # print(dir(context))
         # print(context)
         print(type(context.obj))
-        print(export.THING)
+        print(THING)
         thingy()
         myobj = Grand()
         myobj.bla = 'bla_value'
         print(dir(myobj))
         print(str(myobj.bla))
         print(GLOBAL_THING)
+        blank_()
 
 
 @click.command(name="list")
