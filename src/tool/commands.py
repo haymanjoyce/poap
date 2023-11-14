@@ -1,26 +1,9 @@
-# commands.py
-
 import click
 from datetime import datetime
-from export import THING, blank_
-
-
 from pathlib import Path
+from export import blank_
 
 HOME = str(Path.home())
-
-
-def thingy():
-    print("thingy")
-
-
-class Grand:
-    def __int__(self, bla):
-        self.bla = bla
-
-
-print(THING)
-GLOBAL_THING = 'global_thing'
 
 
 @click.command(name='import')
@@ -36,8 +19,7 @@ def import_(check):
 @click.option('--blank', '-b', is_flag=True, default=False, help="Gives you a blank template (xlsx only).")
 @click.option('--sheet', '-s', 'sheet', type=click.STRING, default='all', show_default=True)
 @click.option('--meta', '-m', 'meta', type=click.Choice(['none', 'some', 'all'], case_sensitive=False), default='none', show_default=True, help="Meta-data options.")
-@click.pass_context
-def export(context, type_, blank, sheet, location, name, meta):
+def export(type_, blank, sheet, location, name, meta):
     click.echo(blank)
     click.echo(type_)
     click.echo(sheet)
@@ -45,17 +27,6 @@ def export(context, type_, blank, sheet, location, name, meta):
     click.echo(name)
     click.echo(meta)
     if blank:
-        print("Works")
-        # print(dir(context))
-        # print(context)
-        print(type(context.obj))
-        print(THING)
-        thingy()
-        myobj = Grand()
-        myobj.bla = 'bla_value'
-        print(dir(myobj))
-        print(str(myobj.bla))
-        print(GLOBAL_THING)
         blank_()
 
 

@@ -1,12 +1,9 @@
-# __main__.py
-
 import click
 import commands
 
 
 @click.group()
-@click.pass_context
-def cli(context):
+def cli():
     pass
 
 
