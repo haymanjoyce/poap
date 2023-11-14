@@ -3,6 +3,20 @@
 import click
 from . import HOME
 from datetime import datetime
+from . import export
+
+
+def thingy():
+    print("thingy")
+
+
+class Grand:
+    def __int__(self, bla):
+        self.bla = bla
+
+
+print(export.THING)
+GLOBAL_THING = 'global_thing'
 
 
 @click.command(name='import')
@@ -18,13 +32,26 @@ def import_(check):
 @click.option('--blank', '-b', is_flag=True, default=False, help="Gives you a blank template (xlsx only).")
 @click.option('--sheet', '-s', 'sheet', type=click.STRING, default='all', show_default=True)
 @click.option('--meta', '-m', 'meta', type=click.Choice(['none', 'some', 'all'], case_sensitive=False), default='none', show_default=True, help="Meta-data options.")
-def export(type_, blank, sheet, location, name, meta):
+@click.pass_context
+def export(context, type_, blank, sheet, location, name, meta):
     click.echo(blank)
     click.echo(type_)
     click.echo(sheet)
     click.echo(location)
     click.echo(name)
     click.echo(meta)
+    if blank:
+        print("Works")
+        # print(dir(context))
+        # print(context)
+        print(type(context.obj))
+        print(export.THING)
+        thingy()
+        myobj = Grand()
+        myobj.bla = 'bla_value'
+        print(dir(myobj))
+        print(str(myobj.bla))
+        print(GLOBAL_THING)
 
 
 @click.command(name="list")

@@ -5,7 +5,8 @@ from . import commands
 
 
 @click.group()
-def cli():
+@click.pass_context
+def cli(context):
     pass
 
 
