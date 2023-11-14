@@ -3,6 +3,7 @@ from datetime import datetime
 from pathlib import Path
 from src.tool.export import blank_
 
+
 HOME = str(Path.home())
 
 
@@ -26,8 +27,8 @@ def export(type_, blank, sheet, location, name, meta):
     click.echo(location)
     click.echo(name)
     click.echo(meta)
-    if blank:
-        blank_()
+    # if blank:
+    #     blank_()
 
 
 @click.command(name="list")
