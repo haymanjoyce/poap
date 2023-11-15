@@ -32,9 +32,15 @@ It is convention to put packages in a folder called src and for src to contain o
 Src is a folder (not a package) but my editor has automatically made it into a package (by applying an __init__.py file)
 Src contains "tool" (the main package)
 
-When using commands in development, without deploying app, you must navigate to entry point directory and treat tool package as entry module (python -m tool)
-When deployed, the .toml file puts entry point on PYTHONPATH I think (and the command is simply "tool")
+In development, you need to run the entry point file (cli.py) from the root directory (PycharmProjects/tool)
+python -m src.tool.cli
+If you run it from the entry point package (./tool/src/tool) then it won't understand the absolute import statements (and so won't find modules)
+python -m tool or python -m cli
+But if you use relative imports then setuptools will not find modules in deployment
+
 I have switched from pyproject.toml to setup.py because that is what the Click docs recommend
+
+You can create another virtual environment and test the app there, deploying code straight from project folder by installing the package into the environment
 
 WORKBOOKS
 
