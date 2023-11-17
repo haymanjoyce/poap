@@ -1,3 +1,5 @@
+17 Nov - change license
+17 Nov - renamed from "tool" to "planonapage" because former not unique on PyPI
 27 Oct - completed revision of design in notes file
 23 Oct - switched from pyproject.toml to setup.py in accordance with Click docs
 

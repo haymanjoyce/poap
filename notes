@@ -1,22 +1,14 @@
-PACKAGES, FOLDERS, FILES
-
-Packages are:
-
-    src
-    tests
-
-Folders are:
+FILE STRUCTURE
 
     data
         workbooks
         dataframes
         templates
         styles
-
     scripts
-
-Root level files are:
-
+    src (package)
+        poap (package)
+    tests (package)
     .gitignore
     LICENSE
     log
@@ -30,7 +22,9 @@ Notes:
 
 It is convention to put packages in a folder called src and for src to contain only one package
 Src is a folder (not a package) but my editor has automatically made it into a package (by applying an __init__.py file)
-Src contains "tool" (the main package)
+Src contains "poap" (the main package)
+
+ENTRY POINT
 
 In development, you need to run the entry point package (./poap/src/poap) from the project root directory (PycharmProjects/poap), else it will not understand the absolute import statements:
 python -m src.poap
@@ -38,11 +32,11 @@ python -m src.poap
 Once deployed, you can simply use:
 poap
 
+SETUP
+
 Setuptools needs absolute import statements (and it's good practice)
 
 I have switched from pyproject.toml to setup.py because that is what the Click docs recommend
-
-You can create another virtual environment and test the app there, deploying code straight from project folder by installing the package into the environment
 
 WORKBOOKS
 
@@ -152,3 +146,13 @@ print.py - for converting svg into pdfs or handling print devices
 image.py - for creating raster images
 animate.py - for creating animations
 utils.py - tools for file handling and other things like helper functions
+
+LICENSE
+
+I switched license from MIT to private.
+Any copies of software before switch are still under MIT.
+I used this as my guide:  https://gist.github.com/nicolasdao/a7adda51f2f185e8d2700e1573d8a633
+I did this after discovering this project: https://www.onepager.com/
+Think it's okay to do this:  https://softwareengineering.stackexchange.com/questions/279171/can-the-author-of-an-mit-licensed-project-convert-it-to-a-commercial-licensed-on
+I added the BSD license 4-clause disclaimer to the bottom
+The copyright statement should head up every page of code
