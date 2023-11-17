@@ -20,7 +20,7 @@ setup(
     ],
     entry_points={
         'console_scripts': [
-            'tool = src.tool.__main__:cli',
+            'poap = src.poap.__main__:cli',
         ],
     },
 )
