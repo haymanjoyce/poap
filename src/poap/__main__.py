@@ -1,5 +1,5 @@
 import click
-from src.tool import commands
+from src.poap import commands
 
 
 @click.group()

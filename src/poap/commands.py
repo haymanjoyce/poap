@@ -3,7 +3,7 @@ from pathlib import Path
 
 import click
 
-from src.tool.export import blank_
+from src.poap.export import blank_
 
 
 HOME = str(Path.home())
