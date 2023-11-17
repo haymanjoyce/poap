@@ -1,4 +1,4 @@
-This is a Python application for creating Gantt charts.
+This is a Python application for viewing Gantt charts.
 
 It is meant for professional project planners to use.
 
@@ -14,4 +14,4 @@ The data is held and edited in a Microsoft Excel workbook (i.e. spreadsheet).
 
 There is one spreadsheet per chart (the tool calls the 'POAP' a 'chart').
 
-To get started, install the tool into your Python environment and enter 'tool' into the command line.
+To get started, install the tool into your Python environment and enter 'poap' into the command line.
