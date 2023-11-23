@@ -73,7 +73,7 @@ May switch from dfs to db in future (which would retain project and version hist
 
 TEMPLATES
 
-The templates folder contains template files (csv or json, for example)
+The templates folder contains template files (txt, csv or json, for example)
 A template file will contain the tables and fields needed to create dfs and workbooks (i.e. schemas)
 Template files can be used to check existing workbook and df structure
 For example, there could be a template for creating a workbook with basic project data only or another which includes styling data
