@@ -1,3 +1,4 @@
+25 Nov - drop template folder in favour of templates.py in poap package
 17 Nov - change license
 17 Nov - renamed from "tool" to "planonapage" because former not unique on PyPI
 27 Oct - completed revision of design in notes file
