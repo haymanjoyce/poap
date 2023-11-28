@@ -16,21 +16,21 @@ def import_(check):
 
 
 @click.command(name='export')
-@click.option('--name', '-n', 'name', type=click.STRING, default=f"export_{datetime.now().strftime("%Y%m%d_%H%M%S")}", show_default=True)
-@click.option('--type', '-t', 'type_', default='xlsx', show_default=False, type=click.Choice(['xlsx', 'csv', 'json', 'svg', 'pdf', 'png', 'pkl'], case_sensitive=False))
+@click.option('--name', '-n', 'file_name', type=click.STRING, default=f"export_{datetime.now().strftime("%Y%m%d_%H%M%S")}", show_default=True)
+@click.option('--type', '-t', 'file_type', default='xlsx', show_default=False, type=click.Choice(['xlsx', 'csv', 'json', 'svg', 'pdf', 'png', 'pkl'], case_sensitive=False))
 @click.option('--location', '-l', 'location', type=click.STRING, default=HOME, show_default=True)
 @click.option('--blank', '-b', is_flag=True, default=False, help="Gives you a blank template (xlsx only).")
-@click.option('--sheet', '-s', 'sheet', type=click.STRING, default='all', show_default=True)
+@click.option('--sheet', '-s', 'sheet_name', type=click.STRING, default='0', show_default=True)
 @click.option('--meta', '-m', 'meta', type=click.Choice(['none', 'some', 'all'], case_sensitive=False), default='none', show_default=True, help="Meta-data options.")
-def export(type_, blank, sheet, location, name, meta):
-    click.echo(blank)
-    click.echo(type_)
-    click.echo(sheet)
+def export(file_name, file_type, location, blank, sheet_name, meta):
+    click.echo(file_name)
+    click.echo(file_type)
     click.echo(location)
-    click.echo(name)
+    click.echo(blank)
+    click.echo(sheet_name)
     click.echo(meta)
     if blank:
-        blank_()
+        blank_(file_name, file_type, location, meta)
 
 
 @click.command(name="list")

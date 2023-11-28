@@ -1,9 +1,9 @@
-from pandas import Timestamp as Stamp
+from pandas import Timestamp as Date
 
 
 tasklist = {
     'Tasklist': ['Task A', 'Task B', 'Task C'],
-    'Start': [Stamp('20241125'), Stamp('20241125'), Stamp('20241125')],
-    'Finish': [Stamp('20241125'), Stamp('20241125'), Stamp('20241125')],
+    'Start': [Date('20241125'), Date('20241125'), Date('20241125')],
+    'Finish': [Date('20241125'), Date('20241125'), Date('20241125')],
 }
 
