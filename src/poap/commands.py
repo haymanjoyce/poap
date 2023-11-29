@@ -3,7 +3,7 @@ from pathlib import Path
 
 import click
 
-from src.poap.export import blank_
+from src.poap.export import export_handler
 
 
 HOME = str(Path.home())
@@ -23,14 +23,7 @@ def import_(check):
 @click.option('--sheet', '-s', 'sheet_name', type=click.STRING, default='0', show_default=True)
 @click.option('--meta', '-m', 'meta', type=click.Choice(['none', 'some', 'all'], case_sensitive=False), default='none', show_default=True, help="Meta-data options.")
 def export(file_name, file_type, location, blank, sheet_name, meta):
-    click.echo(file_name)
-    click.echo(file_type)
-    click.echo(location)
-    click.echo(blank)
-    click.echo(sheet_name)
-    click.echo(meta)
-    if blank:
-        blank_(file_name, file_type, location, meta)
+    export_handler(file_name, file_type, location, blank, sheet_name, meta)
 
 
 @click.command(name="list")
