@@ -16,7 +16,7 @@ FILE STRUCTURE
     README
     requirements
     setup.py - for getting the tool ready for use (in a Python environment)
-    config - json file for tool configuration (e.g. holding file locations)
+    config - json or txt file for tool configuration (e.g. holding file locations)
 
 Notes:
 

@@ -1,18 +1,22 @@
-from pandas import DataFrame
+from pandas import DataFrame, read_csv
 
-from src.poap.templates import tasklist
-
-
-class Exporter:
-    def __int__(self, *args):
-        self.args = args
+from src.poap.template import tasklist
 
 
-def export_handler(*args):
-    print([*args])
+class ExportManager:
 
+    def __init__(self):
+        self.file_name = str()
+        self.file_type = str()
+        self.location = str()
+        self.blank = bool()
+        self.sheet_name = int()
+        self.meta = str()
 
-def blank_(file_name, file_type, location, meta):
-    df_ = DataFrame(tasklist)
-    df_.to_excel(r'./test.xlsx')
+    def temp(self):
+        pass
+
+    def blank_file(self):
+        df = DataFrame(tasklist)
+        df.to_csv(r'./data/templates/test1.csv')
 

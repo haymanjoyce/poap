@@ -1,8 +1,10 @@
 from pathlib import Path
 
 
-class PathKeeper:
-    pass
+class PathManager:
+
+    def __init__(self):
+        self.path = str()
 
 
 def path_cleaner(file_name: str, file_type: str, location: str) -> str:
