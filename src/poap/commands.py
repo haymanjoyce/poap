@@ -17,10 +17,9 @@ def import_(check):
 @click.option('--sheet', '-s', 'sheet_name', type=click.STRING, default='0', show_default=True)
 @click.option('--meta', '-m', 'meta', type=click.Choice(['none', 'some', 'all'], case_sensitive=False), default='none', show_default=True, help="Meta-data options.")
 def export(file_name, file_type, location, blank, sheet_name, meta):
-    this_export = ExportManager()
-    this_export.file_name = file_name
-    print(this_export.file_name)
-    this_export.blank_file()
+    this_export = ExportManager(file_name, file_type, location, blank, sheet_name, meta)
+    this_export.manage()
+    print(this_export.__getstate__())
 
 
 @click.command(name="list")

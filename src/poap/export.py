@@ -1,22 +1,31 @@
-from pandas import DataFrame, read_csv
-
-from src.poap.template import tasklist
+from pandas import read_csv
+from pathlib import Path
+from time import ctime
 
 
 class ExportManager:
 
-    def __init__(self):
-        self.file_name = str()
-        self.file_type = str()
-        self.location = str()
-        self.blank = bool()
-        self.sheet_name = int()
-        self.meta = str()
+    def __init__(self, file_name, file_type, location, blank, sheet_name, meta):
+        self.file_name = file_name
+        self.file_type = file_type
+        self.location = location
+        self.blank = blank
+        self.sheet_name = sheet_name
+        self.meta = meta
 
-    def temp(self):
-        pass
+    def manage(self):
+        self.defaults()
+
+    def defaults(self):
+        if not self.location:
+            self.location = Path.home()
+        if not self.file_name:
+            self.file_name = f'export_{ctime().replace(" ", "_")}'
 
     def blank_file(self):
-        df = DataFrame(tasklist)
-        df.to_csv(r'./data/templates/test1.csv')
+        try:
+            df = read_csv(r'./data/templates/tasks.csv')
+            df.to_csv(r'./data/templates/test4.csv')
+        except FileNotFoundError:
+            print('Template file not found.')
 
