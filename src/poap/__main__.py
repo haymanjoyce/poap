@@ -2,6 +2,7 @@ import click
 from src.poap import commands
 
 
+
 @click.group()
 def cli():
     pass
