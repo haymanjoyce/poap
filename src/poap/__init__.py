@@ -1,5 +1,7 @@
 from src.poap.utils import PathManager
+from src.poap.export import ExportManager
 
-test = PathManager().open_config()
 
+path_manager = PathManager()
+export_manager = ExportManager()
 

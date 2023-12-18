@@ -2,6 +2,9 @@ import click
 
 from src.poap.export import ExportManager
 
+from src.poap import path_manager
+from src.poap import export_manager
+
 
 @click.command(name='import')
 @click.option('--check', '-c', default=True, help="Checks document content before import.")
@@ -17,9 +20,14 @@ def import_(check):
 @click.option('--sheet', '-s', 'sheet_name', type=click.STRING, default='0', show_default=True)
 @click.option('--meta', '-m', 'meta', type=click.Choice(['none', 'some', 'all'], case_sensitive=False), default='none', show_default=True, help="Meta-data options.")
 def export(file_name, file_type, location, blank, sheet_name, meta):
-    this_export = ExportManager(file_name, file_type, location, blank, sheet_name, meta)
-    this_export.manage()
-    print(this_export.__getstate__())
+    export_manager.file_name = file_name
+    export_manager.file_type = file_type
+    export_manager.location = location
+    export_manager.blank = blank
+    export_manager.sheet_name = sheet_name
+    export_manager.meta = meta
+    export_manager.execute()
+    print(path_manager.config_dict)
 
 
 @click.command(name="list")

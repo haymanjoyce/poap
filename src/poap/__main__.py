@@ -1,6 +1,6 @@
 import click
-from src.poap import commands
 
+from src.poap import commands
 
 
 @click.group()

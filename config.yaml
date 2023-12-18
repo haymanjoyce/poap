@@ -1,3 +1,8 @@
 export_path:
-  a: 0
-  b: 1
+  location: ''
+  name: ''
+  type: ''
+import_path:
+  location: ''
+  name: ''
+  type: ''
