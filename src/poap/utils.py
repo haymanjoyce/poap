@@ -2,13 +2,6 @@ import yaml
 from pathlib import Path
 
 
-class PathManager:
-
-    def __init__(self):
-        self.path = str()
-        self.config_dict = get_config_dict()
-
-
 def get_config_dict():
     try:
         with open(Path('config.yaml'), "r") as config_file:

@@ -12,13 +12,13 @@ def import_(check):
 @click.command(name='export')
 @click.option('--name', '-n', 'file_name', type=click.STRING)
 @click.option('--type', '-t', 'file_type', default='xlsx', show_default=False, type=click.Choice(['xlsx', 'csv', 'json', 'svg', 'pdf', 'png', 'pkl'], case_sensitive=False))
-@click.option('--location', '-l', 'location', type=click.STRING)
+@click.option('--path', '-p', 'file_path', type=click.STRING)
 @click.option('--blank', '-b', is_flag=True, default=False, help="Gives you a blank template (xlsx only).")
 @click.option('--sheet', '-s', 'sheet_name', type=click.STRING, default='0', show_default=True)
 @click.option('--meta', '-m', 'meta', type=click.Choice(['none', 'some', 'all'], case_sensitive=False), default='none', show_default=True, help="Meta-data options.")
-def export(file_name, file_type, location, blank, sheet_name, meta):
-    export_manager = ExportManager(file_name, file_type, location, blank, sheet_name, meta)
-    print(export_manager.__dict__)
+def export(file_name, file_type, file_path, blank, sheet_name, meta):
+    export_manager = ExportManager(file_name, file_type, file_path, blank, sheet_name, meta)
+    print(export_manager.file_name)
 
 
 @click.command(name="list")
