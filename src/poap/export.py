@@ -18,14 +18,23 @@ class ExportManager:
         self.meta = meta
 
     def set_file_name(self, file_name):
-        if not file_name:
-            saved_name = get_config_dict().__getitem__("export_path").__getitem__("name")
-            if not saved_name:
-                return f'export_{ctime().replace(" ", "_")}'
-            else:
-                return saved_name
+        if file_name:
+                clean_name = 'clean_name'
+                # save clean_name
+                return clean_name
         else:
-            pass
+            saved_name = get_config_dict().__getitem__("export_path").__getitem__("name")
+        if saved_name:
+            # check it doesn't exist (for extension) at location
+            return saved_name
+        else:
+            modified_name = 'modified_name'
+            # check name with filetype doesn't already exist at location and edit if it does
+            # keep checking until no such edited name at location
+            # save it if edited
+
+            auto_name = f'export_{ctime().replace(" ", "_")}'
+            return modified_name
 
     def set_file_type(self):
         pass
