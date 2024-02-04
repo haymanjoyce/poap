@@ -1,1 +1,1 @@
-This is a Python application for viewing Gantt charts.
+This is a Python application for creating Gantt charts.
