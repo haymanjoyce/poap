@@ -1,4 +1,5 @@
 import sys
+import pathlib
 
 from PyQt5.QtCore import Qt, QRect
 from PyQt5.QtWidgets import QApplication, QLabel, QMainWindow
@@ -18,10 +19,24 @@ class Window(QMainWindow):
         self.create_svg()
 
     def create_svg(self):
-        svg = QSvgWidget('../../data/svgs/gaussian1.svg', parent=self)
-        svg.setGeometry(QRect(0, 0, 800, 600))
+        rel_path = 'data/svgs/gaussian_blur.svg'.strip()
+        cwd = pathlib.Path.cwd()
+        path = pathlib.Path.joinpath(cwd, rel_path)
+        # path = pathlib.Path('data/svgs/gaussian_blur.svg').absolute()
+        print(path)
+        print(path.is_file())
+        svg = QSvgWidget(str(path), parent=self)
+        svg.setGeometry(QRect(0, 0, 600, 600))
         self.resize(svg.width(), svg.height())
         svg.show()
+
+
+def test():
+    cwd = pathlib.Path.cwd()
+    print(cwd)
+    file = pathlib.Path('data/svgs/gaussian_blur.svg').absolute()
+    print(file)
+    print(file.is_file())
 
 
 if __name__ == "__main__":

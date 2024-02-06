@@ -1,0 +1,3 @@
+If launching from IDE and terminal, ensure you are launching from same working directory and pointing to same script (package)
+Working directory: C:/Users/hayma/PycharmProjects/poap/
+Script: C:/Users/hayma/PycharmProjects/poap/src/poap
