@@ -1,7 +1,7 @@
 import os
 
 
-def get_abs_path(rel_path='../../data/svgs/gaussian_blur.svg'):
+def get_abs_path(rel_path='data/svg/gaussian_blur.svg'):
 
     abs_path = os.path.abspath(rel_path)
 

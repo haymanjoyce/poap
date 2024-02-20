@@ -25,19 +25,3 @@ class MainWindow(QMainWindow):
 
         # Set the central widget
         self.setCentralWidget(svg_widget)
-
-
-class ZoomableSvgWidget(QWidget):
-    def __init__(self):
-        super().__init__()
-        self.svg_item = QGraphicsSvgItem(utils.get_abs_path())
-        self.graphics_view = QGraphicsView(self)
-        self.graphics_view.setScene(self.svg_item.scene())
-        layout = QVBoxLayout()
-        layout.addWidget(self.graphics_view)
-        self.setLayout(layout)
-
-    def wheelEvent(self, event):
-        factor = 1.1 if event.angleDelta().y() > 0 else 0.9
-        self.graphics_view.scale(factor, factor)
-        event.accept()
