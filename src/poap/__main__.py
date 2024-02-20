@@ -6,17 +6,26 @@ from PyQt5.QtWidgets import QApplication, QLabel, QMainWindow
 from PyQt5.QtSvg import QSvgWidget
 
 
-class Window(QMainWindow):
-    """Main Window."""
-    def __init__(self, parent=None):
-        """Initializer."""
-        super().__init__(parent)
-        self.setWindowTitle("Python Menus & Toolbars")
-        # self.resize(400, 200)
-        # self.centralWidget = QLabel("Hello, World")
-        # self.centralWidget.setAlignment(Qt.AlignHCenter | Qt.AlignVCenter)
-        # self.setCentralWidget(self.centralWidget)
-        self.create_svg()
+import sys
+from PyQt5.QtWidgets import QApplication, QMainWindow, QSvgWidget
+
+
+class MainWindow(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        self.setWindowTitle('SVG Main Window')
+
+        # Create a QSvgWidget
+        svg_widget = QSvgWidget()
+
+        # Set the size of the QSvgWidget
+        svg_widget.setGeometry(100, 100, 400, 400)
+
+        # Load the SVG image
+        svg_widget.load('image.svg')
+
+        # Set the central widget
+        self.setCentralWidget(svg_widget)
 
     def create_svg(self):
         rel_path = 'data/svgs/gaussian_blur.svg'.strip()
@@ -39,9 +48,11 @@ def test():
     print(file.is_file())
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     app = QApplication(sys.argv)
-    win = Window()
-    win.show()
+    window = MainWindow()
+    window.show()
     sys.exit(app.exec_())
+
+
 
