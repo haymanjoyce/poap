@@ -34,7 +34,7 @@ data = {
 
 df2 = pd.DataFrame(data)
 
-sample = get_abs_path('data/excel/sample.xlsx')
+sample = get_abs_path('../../data/excel/sample.xlsx')
 df3 = pd.read_excel(sample)
 
 print(df3)
