@@ -1,6 +1,5 @@
-If launching from IDE and terminal, ensure you are launching from same working directory and pointing to same script (package)
-Working directory: C:/Users/hayma/PycharmProjects/poap/
-Script: C:/Users/hayma/PycharmProjects/poap/src/poap
+Run from poap module (poap/src/poap)
+If you run from a script within the package, the paths in the config file will be incorrect
 
 ---
 

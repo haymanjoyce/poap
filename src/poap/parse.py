@@ -13,4 +13,3 @@ for item in df3['a']:
     dwg.add(dwg.rect(insert=(50, (item*50)), size=(100, 40), fill='green'))
 
 dwg.save()
-
