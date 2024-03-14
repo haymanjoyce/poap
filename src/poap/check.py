@@ -2,7 +2,8 @@ import pandas as pd
 from typing import List
 
 
-def check_column_labels(df: pd.DataFrame = pd.DataFrame(), expected_labels: List[str] = []) -> None:
+def check_column_labels(df: pd.DataFrame = None,
+                        expected_labels: List[str] = None) -> None:
     """
     Checks the column labels of the provided DataFrame.
 
@@ -16,6 +17,11 @@ def check_column_labels(df: pd.DataFrame = pd.DataFrame(), expected_labels: List
     TypeError: If df is not a DataFrame or expected_labels is not a list.
     ValueError: If the DataFrame is empty or the column labels are not as expected.
     """
+    if df is None:
+        df = pd.DataFrame()
+    if expected_labels is None:
+        expected_labels = []
+
     if not isinstance(df, pd.DataFrame):
         raise TypeError("The provided object is not a DataFrame")
     if not isinstance(expected_labels, list):

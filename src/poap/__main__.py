@@ -22,4 +22,4 @@ if __name__ == '__main__':
     dfs = read_excel_file()
     print(dfs['tasks'])
 
-    # check_column_labels(dfs[2], tasks_columns)
+    check_column_labels(dfs['tasks'], tasks_columns)
