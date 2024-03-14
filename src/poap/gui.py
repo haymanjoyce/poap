@@ -5,7 +5,7 @@ from PyQt5.QtCore import Qt, QRect
 from PyQt5.QtWidgets import QApplication, QLabel, QMainWindow, QGraphicsView, QVBoxLayout, QWidget
 from PyQt5.QtSvg import QSvgWidget, QGraphicsSvgItem
 
-import utils
+import src.poap.utils
 
 
 class MainWindow(QMainWindow):
