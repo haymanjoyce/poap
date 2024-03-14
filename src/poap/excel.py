@@ -150,38 +150,44 @@ def create_excel_file(settings_df: Optional[pd.DataFrame] = None, timeframes_df:
     return None
 
 
-def read_excel_file(file_path: str = SAMPLE_XLSX_PATH, sheet_names: Optional[List[str]] = None) -> List[pd.DataFrame]:
+def read_excel_file(file_path: str = SAMPLE_XLSX_PATH) -> Dict[str, pd.DataFrame]:
     """
-    Reads the specified sheets from an Excel file.
+    Reads an Excel file and returns a dictionary of pandas DataFrames.
 
     Parameters:
-    file_path (str, optional): The path to the file to read. Defaults to SAMPLE_XLSX_PATH.
-    sheet_names (List[str], optional): The names of the sheets to read. Defaults to None.
+    file_path (str): The path to the Excel file. Defaults to SAMPLE_XLSX_PATH.
 
     Returns:
-    List[pd.DataFrame]: A list of DataFrames with the data from the specified sheets.
+    Dict[str, pd.DataFrame]: A dictionary where the keys are the sheet names
+    and the values are the corresponding DataFrames.
 
     Raises:
-    TypeError: If file_path is not a string or sheet_names is not a list.
+    TypeError: If file_path is not a string.
+    FileNotFoundError: If the file does not exist.
+    PermissionError: If the necessary permissions to access the file are not available.
+    Exception: If an unexpected error occurred.
     """
-    if sheet_names is None:
-        raise ValueError("sheet_names must be specified")
     if not isinstance(file_path, str):
         raise TypeError("file_path must be a string")
-    if not isinstance(sheet_names, list):
-        raise TypeError("sheet_names must be a list")
 
-    dfs: List[pd.DataFrame] = []
     try:
-        dfs = [pd.read_excel(file_path, sheet_name=sheet) for sheet in sheet_names]
-
+        xls = pd.ExcelFile(file_path)
     except FileNotFoundError:
-        print("The file does not exist")
-
+        raise FileNotFoundError("The file does not exist")
     except PermissionError:
-        print("You do not have the necessary permissions to access the file")
-
+        raise PermissionError("You do not have the necessary permissions to access the file")
     except Exception as e:
-        print(f"An unexpected error occurred: {e}")
+        raise Exception(f"An unexpected error occurred: {e}")
+
+    sheet_names = xls.sheet_names
+    dfs = {}
+
+    for sheet in sheet_names:
+        try:
+            df = pd.read_excel(file_path, sheet_name=sheet, index_col=0)
+            df.name = sheet
+            dfs[sheet] = df
+        except Exception as e:
+            raise Exception(f"An unexpected error occurred while reading the sheet {sheet}: {e}")
 
     return dfs

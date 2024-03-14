@@ -5,7 +5,7 @@ from PyQt5.QtCore import Qt, QRect
 from PyQt5.QtWidgets import QApplication, QLabel, QMainWindow, QGraphicsView, QVBoxLayout, QWidget
 from PyQt5.QtSvg import QSvgWidget, QGraphicsSvgItem
 
-import src.poap.utils
+from src.poap.utils import get_abs_path
 
 
 class MainWindow(QMainWindow):
@@ -20,7 +20,7 @@ class MainWindow(QMainWindow):
         # svg_widget.setGeometry(100, 100, 400, 400)
 
         # Load the SVG image
-        svg_file = utils.get_abs_path()
+        svg_file = get_abs_path()
         svg_widget.load(svg_file.__str__())
 
         # Set the central widget
