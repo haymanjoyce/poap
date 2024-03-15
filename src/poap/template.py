@@ -3,8 +3,8 @@ sheet_names = ['settings', 'timeframes', 'tasks']
 settings_values = {
     'start': '2024-01-01',
     'resolution': 20,
-    'height': 100,
     'width': 200,
+    'height': 100,
     'rows': 5,
 }
 
@@ -27,4 +27,3 @@ tasks_tasks = ['task1', 'task2', 'task3']
 tasks_start_dates = ['2024-01-01', '2024-01-03', '2024-04-01']
 
 tasks_finish_dates = ['2024-01-30', '2024-08-01', '2025-03-01']
-
