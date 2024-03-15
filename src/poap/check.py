@@ -9,6 +9,7 @@ def check_column_labels(df: pd.DataFrame = None,
 
     Parameters:
     df (pd.DataFrame): The DataFrame to check.
+    expected_labels (List[str]): A list of expected column labels.
 
     Returns:
     None
