@@ -3,7 +3,8 @@ from typing import AnyStr
 
 
 def calc_duration(df: pd.DataFrame,
-                  start_column: AnyStr, finish_column: AnyStr, duration_column: AnyStr = 'duration') -> pd.DataFrame:
+                  start_column: AnyStr = 'start', finish_column: AnyStr = 'finish',
+                  duration_column: AnyStr = 'duration') -> pd.DataFrame:
     """
     Calculates the duration between two dates in a DataFrame.
 

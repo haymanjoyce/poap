@@ -6,6 +6,7 @@ from src.poap.template import *
 from src.poap.excel import *
 from src.poap.check import *
 from src.poap.calc import *
+from src.poap.parse import *
 
 
 if __name__ == '__main__':
@@ -21,9 +22,12 @@ if __name__ == '__main__':
     # create_excel_file(settings_df, timeframes_df, tasks_df)
 
     dfs = read_excel_file()
+
+    # check_column_labels(dfs['tasks'], tasks_columns)
+    # dfs['tasks'] = calc_duration(dfs['tasks'], 'start', 'finish')
+
+    print(dfs['settings'])
+    print("\n")
     print(dfs['tasks'])
 
-    check_column_labels(dfs['tasks'], tasks_columns)
-
-    dfs['tasks'] = calc_duration(dfs['tasks'], 'start', 'finish')
-    print(dfs['tasks'])
+    create_sample_svg()
