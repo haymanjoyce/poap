@@ -1,6 +1,8 @@
 import sys
 
-from src.poap.gui import QApplication, MainWindow
+from PyQt5.QtWidgets import QApplication
+
+from src.poap.gui import MainWindow
 
 from src.poap.template import *
 from src.poap.excel import *
@@ -14,8 +16,6 @@ if __name__ == '__main__':
     window = MainWindow()
     window.show()
     sys.exit(app.exec_())
-
-    # create_excel_file()
 
     # settings_df = create_settings_df(settings_values, settings_help)
     # timeframes_df = create_timeframes_df(timeframes_finish_dates, timeframes_spans)
