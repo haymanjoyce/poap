@@ -30,7 +30,8 @@ def check_column_labels(df: pd.DataFrame = None,
     if df.empty:
         raise ValueError("The DataFrame is empty")
     if list(df.columns) != expected_labels:
-        raise ValueError(f"The column labels are not as expected. Expected: {expected_labels}, but got: {list(df.columns)}")
+        raise ValueError(f"The column labels are not as expected. "
+                         f"Expected: {expected_labels}, but got: {list(df.columns)}")
 
     print(f"The column labels are as expected: {list(df.columns)}")
 

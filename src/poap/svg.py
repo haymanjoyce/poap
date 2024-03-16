@@ -1,15 +1,17 @@
 import svgwrite
 
-from src.poap.config import SAMPLE_SVG_PATH
+from src.poap.config import SAMPLE_SVG_PATH, SAMPLE_SVG_SCALED_PATH
 
 
-def create_sample_svg():
+def create_sample_svg(page_width=200, page_height=200):
     # Create an SVG with arbitrary units (here we use pixels)
     dwg = svgwrite.Drawing(SAMPLE_SVG_PATH, profile='tiny')
-    dwg.viewbox(width=200, height=100)  # Define the viewBox in the arbitrary units
-    dwg.add(dwg.rect(insert=(0, 0), size=(200, 100), fill='green'))
-    dwg.add(dwg.rect(insert=(10, 10), size=(100, 50), fill='blue'))
-    dwg.add(dwg.rect(insert=(50, 50), size=(150, 50), fill='red'))
+    dwg.viewbox(width=page_width, height=page_height)  # Define the viewBox in the arbitrary units
+    dwg.add(dwg.rect(insert=(0, 0), size=(page_width, page_height), fill='green'))
+    half_width = page_width / 2
+    half_height = page_height / 2
+    dwg.add(dwg.rect(insert=(0, 0), size=(half_width, half_height), fill='blue'))
+    dwg.add(dwg.rect(insert=(half_width, half_height), size=(half_width, half_height), fill='red'))
 
     # Set the preserveAspectRatio attribute to 'xMidYMid meet'
     # This will preserve the aspect ratio and scale the SVG to fit within the viewport,
@@ -25,4 +27,4 @@ def create_sample_svg():
     dwg['height'] = '100mm'
 
     # Save the scaled SVG
-    dwg.saveas('test_scaled.svg')
+    dwg.saveas(SAMPLE_SVG_SCALED_PATH)
