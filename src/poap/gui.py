@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QMainWindow, QPushButton, QVBoxLayout, QWidget, QAction
+from PyQt5.QtWidgets import QMainWindow, QPushButton, QVBoxLayout, QWidget, QAction, QFileDialog
 from PyQt5.QtSvg import QSvgWidget
 from PyQt5.QtGui import QIcon
 
@@ -73,7 +73,14 @@ class MainWindow(QMainWindow):
         check_column_labels(dfs['tasks'], tasks_columns)
 
     def download_template(self):
-        print("Download Template action triggered")
+        options = QFileDialog.Options()
+        options |= QFileDialog.DontUseNativeDialog
+        file_name, _ = QFileDialog.getSaveFileName(self, "QFileDialog.getSaveFileName()", "",
+                                                   "All Files (*);;Text Files (*.txt)", options=options)
+        if file_name:
+            print(f'File path: {file_name}')
+            # Here you can write your file saving logic
+
         settings_df = create_settings_df(settings_values, settings_help)
         timeframes_df = create_timeframes_df(timeframes_finish_dates, timeframes_spans)
         tasks_df = create_tasks_df(tasks_tasks, tasks_start_dates, tasks_finish_dates)
