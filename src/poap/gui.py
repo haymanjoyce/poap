@@ -75,16 +75,17 @@ class MainWindow(QMainWindow):
     def download_template(self):
         options = QFileDialog.Options()
         options |= QFileDialog.DontUseNativeDialog
-        file_name, _ = QFileDialog.getSaveFileName(self, "QFileDialog.getSaveFileName()", "",
-                                                   "All Files (*);;Text Files (*.txt)", options=options)
+        file_name, _filter = QFileDialog.getSaveFileName(self, "QFileDialog.getSaveFileName()", "",
+                                                         "Excel Files (*.xls *.xlsx)", options=options)
         if file_name:
-            print(f'File path: {file_name}')
+            print(f'File path: {file_name, _filter}')
             # Here you can write your file saving logic
 
-        settings_df = create_settings_df(settings_values, settings_help)
-        timeframes_df = create_timeframes_df(timeframes_finish_dates, timeframes_spans)
-        tasks_df = create_tasks_df(tasks_tasks, tasks_start_dates, tasks_finish_dates)
-        create_excel_file(settings_df, timeframes_df, tasks_df)
+            settings_df = create_settings_df(settings_values, settings_help)
+            timeframes_df = create_timeframes_df(timeframes_finish_dates, timeframes_spans)
+            tasks_df = create_tasks_df(tasks_tasks, tasks_start_dates, tasks_finish_dates)
+
+            create_excel_file(settings_df, timeframes_df, tasks_df, f'{file_name}' + '.xlsx')
 
     def download_svg(self):
         print("Download SVG action triggered")
