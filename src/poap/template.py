@@ -1,8 +1,9 @@
-sheet_names = ['page', 'layout', 'scales', 'timeframes', 'tasks']
+sheet_names = ['drawing', 'layout', 'scales', 'timeframes', 'tasks']
 
-page = {
-    'page_width': 200,
-    'page_height': 100,
+drawing = {
+    'drawing_width': 200,
+    'drawing_height': 100,
+    'units': 'mm',
 }
 
 layout = {
