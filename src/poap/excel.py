@@ -13,23 +13,23 @@ from src.poap.config import SAMPLE_XLSX_PATH
 def return_df_row_labels(data: Dict, name: str) -> pd.DataFrame:
     keys = data.keys()
     values = data.values()
-    df = pd.DataFrame(columns=['key', 'value'])
-    df['key'] = list(keys)
-    df['value'] = list(values)
-    df.name = name
-    return df
+    _df = pd.DataFrame(columns=['key', 'value'])
+    _df['key'] = list(keys)
+    _df['value'] = list(values)
+    _df.name = name
+    return _df
 
 
 def return_df_col_labels(data: Dict, name: str) -> pd.DataFrame:
-    df = pd.DataFrame(data)
-    df.name = name
-    return df
+    _df = pd.DataFrame(data)
+    _df.name = name
+    return _df
 
 
 def save_excel_file(_dfs: List[pd.DataFrame], file_path: str = SAMPLE_XLSX_PATH) -> None:
     with pd.ExcelWriter(file_path) as writer:
-        for df in _dfs:
-            df.to_excel(writer, sheet_name=df.name)
+        for _df in _dfs:
+            _df.to_excel(writer, sheet_name=_df.name, index=False)
 
 
 def return_dfs(excel_file: Optional[str] = SAMPLE_XLSX_PATH) -> List[pd.DataFrame]:
@@ -42,7 +42,7 @@ def return_dfs(excel_file: Optional[str] = SAMPLE_XLSX_PATH) -> List[pd.DataFram
 
 # from src.poap.template import *
 # scales = return_df_col_labels(scales, 'scales')
+# print(scales)
 # save_excel_file([scales, ], '../../data/excel/sample.xlsx')
 # dfs = return_dfs('../../data/excel/sample.xlsx')
-# df = dfs[0]
-# print(df.name)
+# print(dfs[0])

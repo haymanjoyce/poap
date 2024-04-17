@@ -1,8 +1,8 @@
-sheet_names = ['drawing', 'layout', 'scales', 'timeframes', 'rows', 'tasks']
+sheet_names = ['frame', 'layout', 'scales', 'timeframes', 'rows', 'tasks']
 
-drawing = {
-    'drawing_width': 200,
-    'drawing_height': 100,
+frame = {
+    'frame_width': 200,
+    'frame_height': 100,
     'units': 'mm',
 }
 

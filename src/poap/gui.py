@@ -21,12 +21,12 @@ class MainWindow(QMainWindow):
         # noinspection PyUnresolvedReferences
         button.clicked.connect(self.refresh)
 
-        layout = QVBoxLayout()
-        layout.addWidget(svg_widget)
-        layout.addWidget(button)
+        gui_layout = QVBoxLayout()
+        gui_layout.addWidget(svg_widget)
+        gui_layout.addWidget(button)
 
         central_widget = QWidget()
-        central_widget.setLayout(layout)
+        central_widget.setLayout(gui_layout)
         self.setCentralWidget(central_widget)
         self.resize(600, 600)
 
