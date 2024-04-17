@@ -3,7 +3,7 @@ sheet_names = ['frame', 'layout', 'scales', 'timeframes', 'rows', 'tasks']
 frame = {
     'frame_width': 200,
     'frame_height': 100,
-    'units': 'mm',
+    'frame_units': 'mm',
 }
 
 layout = {
