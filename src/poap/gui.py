@@ -56,7 +56,11 @@ class MainWindow(QMainWindow):
 
     def refresh(self):
         print("Refresh button clicked")
-        create_sample_svg()
+        dwg = Drawing(return_dfs())
+        dwg.set_view_port(50, 200)
+        dwg.add_frame()
+        dwg.save_drawing()
+        self.update()
 
     def select_data(self):
         print("Select Data action triggered")
