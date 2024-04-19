@@ -1,6 +1,7 @@
 from PyQt5.QtWidgets import QMainWindow, QPushButton, QVBoxLayout, QWidget, QAction, QFileDialog
 from PyQt5.QtSvg import QSvgWidget
 from PyQt5.QtGui import QIcon
+from PyQt5.QtCore import Qt
 
 from src.poap.config import *
 from src.poap.template import *
@@ -16,19 +17,20 @@ class MainWindow(QMainWindow):
         self.setWindowTitle('Plan on a Page Tool')
         self.setWindowIcon(QIcon(LOGO_PATH))
 
-        svg_widget = QSvgWidget(SAMPLE_SVG_PATH)
+        self.svg_widget = QSvgWidget(SAMPLE_SVG_PATH)
+        self.svg_widget.renderer().setAspectRatioMode(Qt.KeepAspectRatio)
         button = QPushButton("Refresh")
         # noinspection PyUnresolvedReferences
         button.clicked.connect(self.refresh)
 
         gui_layout = QVBoxLayout()
-        gui_layout.addWidget(svg_widget)
+        gui_layout.addWidget(self.svg_widget)
         gui_layout.addWidget(button)
 
         central_widget = QWidget()
         central_widget.setLayout(gui_layout)
         self.setCentralWidget(central_widget)
-        self.resize(600, 600)
+        self.resize(100, 100)
 
         menu_bar = self.menuBar()
         data_menu = menu_bar.addMenu("Data")
@@ -57,7 +59,7 @@ class MainWindow(QMainWindow):
     def refresh(self):
         print("Refresh button clicked")
         dwg = Drawing(return_dfs())
-        dwg.set_view_port(50, 200)
+        dwg.set_view_port(200, 200)
         dwg.add_frame()
         dwg.save_drawing()
         self.update()
@@ -74,13 +76,21 @@ class MainWindow(QMainWindow):
         print(df.name)
 
     def download_template(self):
+        # create dfs
+        _frame = return_df_row_labels(frame, 'frame')
+        _layout = return_df_row_labels(layout, 'layout')
+        _scales = return_df_col_labels(scales, 'scales')
+        _dfs = [_frame, _layout, _scales]
+
+        # open dialogue
         options = QFileDialog.Options()
         options |= QFileDialog.DontUseNativeDialog
         file_name, _filter = QFileDialog.getSaveFileName(self, "QFileDialog.getSaveFileName()", "",
                                                          "Excel Files (*.xls *.xlsx)", options=options)
+        # save file
         if file_name:
             print(f'File path: {file_name, _filter}')
-            # Here you can write your file saving logic
+            save_excel_file(_dfs, file_name)
 
     def download_svg(self):
         print("Download SVG action triggered")
