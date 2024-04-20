@@ -9,6 +9,7 @@ from src.poap.excel import *
 from src.poap.checks import *
 from src.poap.calcs import *
 from src.poap.svg import *
+from src.poap.utils import *
 
 
 class MainWindow(QMainWindow):
@@ -56,25 +57,6 @@ class MainWindow(QMainWindow):
         download_menu.addAction(download_svg_action)
         help_menu.addAction(download_template_action)
 
-    def refresh(self):
-        print("Refresh button clicked")
-        dwg = Drawing(return_dfs())
-        dwg.set_view_port(200, 200)
-        dwg.add_frame()
-        dwg.save_drawing()
-        self.update()
-
-    def select_data(self):
-        print("Select Data action triggered")
-        dfs = return_dfs()
-        print(dfs)
-
-    def check_data(self):
-        print("Check Data action triggered")
-        dfs = return_dfs()
-        df = [df for df in dfs if df.name == 'scales'][0]
-        print(df.name)
-
     def download_template(self):
         # create dfs
         _frame = return_df_row_labels(frame, 'frame')
@@ -92,8 +74,42 @@ class MainWindow(QMainWindow):
             print(f'File path: {file_name, _filter}')
             save_excel_file(_dfs, file_name)
 
+    def select_data(self):
+        print("Select Data action triggered")
+        file_name, _filter = QFileDialog.getOpenFileName(self, "Select Spreadsheet", "",
+                                                         "Excel Files (*.xls *.xlsx)")
+        if file_name:
+            print(f'File path: {file_name, _filter}')
+            USER_XLSX_PATH = file_name
+            set_user_xlsx_path(file_name)
+            print(USER_XLSX_PATH)
+
+            store_path('USER_XLSX_PATH', file_name)
+            print(USER_XLSX_PATH)
+
+# todo replace config py with config.json then import json vars at package init
+
+    def check_data(self):
+        print("Check Data action triggered")
+        dfs = return_dfs()
+        df = [df for df in dfs if df.name == 'scales'][0]
+        print(df.name)
+        # dfs = return_dfs(file_name)
+        # check column labels
+        check_column_labels(dfs[0], ['key', 'value'])
+        check_column_labels(dfs[1], ['key', 'value'])
+        check_column_labels(dfs[2], ['key', 'value'])
+
     def download_svg(self):
         print("Download SVG action triggered")
+
+    def refresh(self):
+        print("Refresh button clicked")
+        dwg = Drawing(return_dfs())
+        dwg.set_view_port(200, 200)
+        dwg.add_frame()
+        dwg.save_drawing()
+        self.update()
 
     def closeEvent(self, event):
         print("Window closed")
