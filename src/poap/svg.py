@@ -3,7 +3,7 @@ import pandas as pd
 
 from typing import Dict, List, Optional
 
-from src.poap.config import SAMPLE_SVG_PATH, SAMPLE_SVG_SCALED_PATH
+from src.poap import SAMPLE_SVG_PATH, SAMPLE_SVG_SCALED_PATH
 
 
 class Drawing:

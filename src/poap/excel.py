@@ -7,7 +7,7 @@ This module provides functions to create and read Excel files from pandas DataFr
 from typing import Dict, List, Optional
 import pandas as pd
 
-from src.poap.config import SAMPLE_XLSX_PATH
+from src.poap import SAMPLE_XLSX_PATH
 
 
 def return_df_row_labels(data: Dict, name: str) -> pd.DataFrame:

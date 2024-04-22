@@ -1,9 +1,11 @@
+import os
+
 from PyQt5.QtWidgets import QMainWindow, QPushButton, QVBoxLayout, QWidget, QAction, QFileDialog
 from PyQt5.QtSvg import QSvgWidget
 from PyQt5.QtGui import QIcon
 from PyQt5.QtCore import Qt
 
-from src.poap.config import *
+from src.poap import SAMPLE_XLSX_PATH, SAMPLE_SVG_PATH, SAMPLE_SVG_SCALED_PATH, LOGO_PATH
 from src.poap.template import *
 from src.poap.excel import *
 from src.poap.checks import *
@@ -71,23 +73,19 @@ class MainWindow(QMainWindow):
                                                          "Excel Files (*.xls *.xlsx)", options=options)
         # save file
         if file_name:
-            print(f'File path: {file_name, _filter}')
             save_excel_file(_dfs, file_name)
 
+    import os
+
     def select_data(self):
-        print("Select Data action triggered")
-        file_name, _filter = QFileDialog.getOpenFileName(self, "Select Spreadsheet", "",
+        # open dialogue
+        last_file_path = get_path('USER_XLSX_PATH')
+        last_dir_path = os.path.dirname(last_file_path) if last_file_path else None
+        file_name, _filter = QFileDialog.getOpenFileName(self, "Select Spreadsheet", last_dir_path,
                                                          "Excel Files (*.xls *.xlsx)")
+        # store path
         if file_name:
-            print(f'File path: {file_name, _filter}')
-            USER_XLSX_PATH = file_name
-            set_user_xlsx_path(file_name)
-            print(USER_XLSX_PATH)
-
             store_path('USER_XLSX_PATH', file_name)
-            print(USER_XLSX_PATH)
-
-# todo replace config py with config.json then import json vars at package init
 
     def check_data(self):
         print("Check Data action triggered")
