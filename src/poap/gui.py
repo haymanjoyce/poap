@@ -5,7 +5,7 @@ from PyQt5.QtSvg import QSvgWidget
 from PyQt5.QtGui import QIcon
 from PyQt5.QtCore import Qt
 
-from src.poap import SAMPLE_XLSX_PATH, SAMPLE_SVG_PATH, SAMPLE_SVG_SCALED_PATH, LOGO_PATH
+from src.poap import LOGO_PATH
 from src.poap.template import *
 from src.poap.excel import *
 from src.poap.checks import *
@@ -74,8 +74,6 @@ class MainWindow(QMainWindow):
         # save file
         if file_name:
             save_excel_file(_dfs, file_name)
-
-    import os
 
     def select_data(self):
         # open dialogue
