@@ -1,6 +1,6 @@
 import os
 
-from PyQt5.QtWidgets import QMainWindow, QPushButton, QVBoxLayout, QWidget, QAction, QFileDialog
+from PyQt5.QtWidgets import QMainWindow, QPushButton, QVBoxLayout, QWidget, QAction, QFileDialog, QDesktopWidget
 from PyQt5.QtSvg import QSvgWidget
 from PyQt5.QtGui import QIcon
 from PyQt5.QtCore import Qt
@@ -10,7 +10,7 @@ from src.poap.template import *
 from src.poap.excel import *
 from src.poap.checks import *
 from src.poap.calcs import *
-from src.poap.svg import *
+from src.poap.drawing import *
 from src.poap.utils import *
 
 
@@ -20,22 +20,36 @@ class MainWindow(QMainWindow):
         self.setWindowTitle('Plan on a Page Tool')
         self.setWindowIcon(QIcon(LOGO_PATH))
 
+        # Center window
+        self.resize(600, 600)
+        screen = QDesktopWidget().screenGeometry()
+        window = self.geometry()
+        print(window.width(), window.height())
+        self.move((screen.width() - window.width()) // 2, (screen.height() - window.height()) // 2)
+
+        gui_layout = QVBoxLayout()
+
+        # SVG widget
+        # If the SVG content is larger than the widget, it will be scaled down to fit within the widget
         self.svg_widget = QSvgWidget(SAMPLE_SVG_PATH)
-        self.svg_widget.renderer().setAspectRatioMode(Qt.KeepAspectRatio)
+        # self.svg_widget.resize(100, 100)
+        # self.svg_widget.renderer().setAspectRatioMode(Qt.KeepAspectRatio)
+        # self.svg_widget.renderer().setAspectRatioMode(Qt.IgnoreAspectRatio)
+        gui_layout.addWidget(self.svg_widget)
+
+        # Draw button
         button = QPushButton("Draw")
         # noinspection PyUnresolvedReferences
         button.clicked.connect(self.draw)
-
-        gui_layout = QVBoxLayout()
-        gui_layout.addWidget(self.svg_widget)
         gui_layout.addWidget(button)
 
+        # Central widget
         central_widget = QWidget()
         central_widget.setLayout(gui_layout)
         self.setCentralWidget(central_widget)
-        self.resize(100, 100)
 
         menu_bar = self.menuBar()
+
         data_menu = menu_bar.addMenu("Data")
         download_menu = menu_bar.addMenu("Download")
         help_menu = menu_bar.addMenu("Help")
@@ -102,9 +116,11 @@ class MainWindow(QMainWindow):
 
     def draw(self):
         dwg = Drawing(return_dfs())
-        dwg.set_view_port(200, 200)
-        dwg.add_frame()
+        # dwg.set_view_port(200, 200)
+        # dwg.set_view_box(200, 200)
+        dwg.add_frame(200, 200)
         dwg.save_drawing()
+        print(dwg.dwg.tostring())
         self.update()
 
     def download_svg(self):

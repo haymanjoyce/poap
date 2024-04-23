@@ -30,7 +30,14 @@ class Drawing:
         self.dwg.attribs['preserveAspectRatio'] = aspect_ratio
 
     def add_frame(self):
-        self.dwg.add(self.dwg.rect(insert=(0, 0), size=(100, 100), fill='green'))
+        pass
+    # todo change on excel read and then redrawn
+
+    def add_layout(self):
+        pass
+
+    def add_scales(self):
+        pass
 
     def save_drawing(self):
         self.dwg.save()
