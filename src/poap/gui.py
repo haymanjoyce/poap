@@ -22,9 +22,9 @@ class MainWindow(QMainWindow):
 
         self.svg_widget = QSvgWidget(SAMPLE_SVG_PATH)
         self.svg_widget.renderer().setAspectRatioMode(Qt.KeepAspectRatio)
-        button = QPushButton("Refresh")
+        button = QPushButton("Draw")
         # noinspection PyUnresolvedReferences
-        button.clicked.connect(self.refresh)
+        button.clicked.connect(self.draw)
 
         gui_layout = QVBoxLayout()
         gui_layout.addWidget(self.svg_widget)
@@ -86,26 +86,29 @@ class MainWindow(QMainWindow):
             store_path('USER_XLSX_PATH', file_name)
 
     def check_data(self):
-        print("Check Data action triggered")
-        dfs = return_dfs()
-        df = [df for df in dfs if df.name == 'scales'][0]
-        print(df.name)
-        # dfs = return_dfs(file_name)
+        # get user file path
+        file_path = get_path('USER_XLSX_PATH')
+
+        # convert xlsx to dfs
+        dfs = return_dfs(file_path)
+
+        # get template values as lists
+        _scales = list(scales.keys())
+
         # check column labels
         check_column_labels(dfs[0], ['key', 'value'])
         check_column_labels(dfs[1], ['key', 'value'])
-        check_column_labels(dfs[2], ['key', 'value'])
+        check_column_labels(dfs[2], _scales)
 
-    def download_svg(self):
-        print("Download SVG action triggered")
-
-    def refresh(self):
-        print("Refresh button clicked")
+    def draw(self):
         dwg = Drawing(return_dfs())
         dwg.set_view_port(200, 200)
         dwg.add_frame()
         dwg.save_drawing()
         self.update()
+
+    def download_svg(self):
+        print("Download SVG action triggered")
 
     def closeEvent(self, event):
         print("Window closed")
