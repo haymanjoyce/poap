@@ -115,12 +115,14 @@ class MainWindow(QMainWindow):
         check_column_labels(dfs[2], _scales)
 
     def draw(self):
-        dwg = Drawing(return_dfs())
-        # dwg.set_view_port(200, 200)
-        # dwg.set_view_box(200, 200)
-        dwg.add_frame(200, 200)
-        dwg.save_drawing()
-        print(dwg.dwg.tostring())
+        # todo change spreadsheet data then redraw
+        # todo try subclassing Drawing
+        file_path = get_path('USER_XLSX_PATH')
+        print(file_path)
+        dfs = return_dfs(file_path)
+        dwg = Drawing()
+        dwg.set_view_port(200, 200)
+        dwg.print_drawing()
         self.update()
 
     def download_svg(self):
@@ -129,3 +131,4 @@ class MainWindow(QMainWindow):
     def closeEvent(self, event):
         print("Window closed")
         event.accept()
+

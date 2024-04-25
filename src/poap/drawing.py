@@ -7,10 +7,10 @@ from src.poap import SAMPLE_SVG_PATH, SAMPLE_SVG_SCALED_PATH
 
 
 class Drawing:
-    def __init__(self, dfs: List[pd.DataFrame] = None, file_path: str = SAMPLE_SVG_PATH):
+    # Drawing class to create SVG drawings
+    # Not inheriting from svgwrite.Drawing as we want to keep the svgwrite library separate from our class
+    def __init__(self, file_path: str = SAMPLE_SVG_PATH):
         self.dwg = svgwrite.Drawing(file_path, profile='tiny')
-
-        # self.scales = [df for df in dfs if df.name == 'scales'][0]
 
     def set_view_port(self, width: int, height: int, units: str = 'mm'):
         # viewPort is the visible area of the SVG
@@ -29,15 +29,11 @@ class Drawing:
         self.dwg.viewbox(width=width, height=height)
         self.dwg.attribs['preserveAspectRatio'] = aspect_ratio
 
-    def add_frame(self):
-        pass
-    # todo change on excel read and then redrawn
+    def print_drawing(self):
+        print(self.dwg.tostring())
 
-    def add_layout(self):
-        pass
-
-    def add_scales(self):
-        pass
+    def add_drawing(self, drawing: svgwrite.Drawing):
+        self.dwg.add(drawing)
 
     def save_drawing(self):
         self.dwg.save()
