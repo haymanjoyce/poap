@@ -1,13 +1,9 @@
-"""
-excel.py
-
-This module provides functions to create and read Excel files from pandas DataFrames.
-"""
-
+import os
+import shutil
 from typing import Dict, List, Optional
 import pandas as pd
 
-from src.poap import SAMPLE_XLSX_PATH
+from src.poap import SAMPLE_XLSX_PATH, TEMP_XLSX_PATH
 
 
 def return_df_row_labels(data: Dict, name: str) -> pd.DataFrame:
@@ -33,16 +29,13 @@ def save_excel_file(_dfs: List[pd.DataFrame], file_path: str = SAMPLE_XLSX_PATH)
 
 
 def return_dfs(excel_file: Optional[str] = SAMPLE_XLSX_PATH) -> List[pd.DataFrame]:
-    xls = pd.ExcelFile(excel_file)
+    # Pandas reads and closes the file
+    # If file open in Excel, Excel will not be able to save changes after pandas operation
+    # And so we copy the file to a temp location and read that file
+    shutil.copy2(excel_file, TEMP_XLSX_PATH)
+    xls = pd.ExcelFile(TEMP_XLSX_PATH)
     _dfs = [xls.parse(sheet_name) for sheet_name in xls.sheet_names]
     for i, _df in enumerate(_dfs):
         _df.name = xls.sheet_names[i]
     return _dfs
 
-
-# from src.poap.template import *
-# scales = return_df_col_labels(scales, 'scales')
-# print(scales)
-# save_excel_file([scales, ], '../../data/excel/sample.xlsx')
-# dfs = return_dfs('../../data/excel/sample.xlsx')
-# print(dfs[0])
