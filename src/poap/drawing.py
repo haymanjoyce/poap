@@ -6,19 +6,17 @@ from typing import Dict, List, Optional
 from src.poap import SAMPLE_SVG_PATH, SAMPLE_SVG_SCALED_PATH
 
 
-class Drawing:
-    # Drawing class to create SVG drawings
-    # Not inheriting from svgwrite.Drawing as we want to keep the svgwrite library separate from our class
+class Drawing(svgwrite.Drawing):
     def __init__(self, file_path: str = SAMPLE_SVG_PATH):
-        self.dwg = svgwrite.Drawing(file_path, profile='tiny')
+        super().__init__(file_path, profile='basic')
 
     def set_view_port(self, width: int, height: int, units: str = 'mm'):
         # viewPort is the visible area of the SVG
         # viewPort is defined using SVG element
         # Set unit identifiers on this element: px, em, cm, mm, in, pt, pc, %, etc.
         # Do not use unit identifiers for child elements
-        self.dwg['width'] = f'{width}{units}'
-        self.dwg['height'] = f'{height}{units}'
+        self['width'] = f'{width}{units}'
+        self['height'] = f'{height}{units}'
 
     def set_view_box(self, width: int, height: int, aspect_ratio: str = 'none'):
         # The viewPort determines how big the map looks on your screen
@@ -26,18 +24,18 @@ class Drawing:
         # The viewBox is defined using the viewBox attribute on the SVG element
         # We want viewBox to be the same as the view port
         # We want to the viewBox to scale with the viewPort (i.e. aspect ratio not preserved)
-        self.dwg.viewbox(width=width, height=height)
-        self.dwg.attribs['preserveAspectRatio'] = aspect_ratio
+        self.viewbox(width=width, height=height)
+        self.attribs['preserveAspectRatio'] = aspect_ratio
 
-    def print_drawing(self):
-        print(self.dwg.tostring())
+    def print_svg(self):
+        print(self.tostring())
 
     def add_drawing(self, drawing: svgwrite.Drawing):
-        self.dwg.add(drawing)
+        self.add(drawing)
 
     def save_drawing(self):
-        self.dwg.save()
+        self.save()
 
     def save_drawing_as(self, file_path: str):
-        self.dwg.saveas(file_path)
+        self.saveas(file_path)
 

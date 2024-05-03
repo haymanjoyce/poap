@@ -24,7 +24,6 @@ class MainWindow(QMainWindow):
         self.resize(600, 600)
         screen = QDesktopWidget().screenGeometry()
         window = self.geometry()
-        print(window.width(), window.height())
         self.move((screen.width() - window.width()) // 2, (screen.height() - window.height()) // 2)
 
         gui_layout = QVBoxLayout()
@@ -115,15 +114,22 @@ class MainWindow(QMainWindow):
         check_column_labels(dfs[2], _scales)
 
     def draw(self):
-        # todo change spreadsheet data then redraw
-        # todo try subclassing Drawing
+        # todo save excel and reload
         file_path = get_path('USER_XLSX_PATH')
-        print(file_path)
         dfs = return_dfs(file_path)
+        _df = get_df_by_name(dfs, 'frame')
+        _df.set_index('key', inplace=True)
+        df_dict = _df['value'].to_dict()
+        _width = df_dict.get('frame_width')
+        _height = df_dict.get('frame_height')
+        _units = df_dict.get('frame_units')
         dwg = Drawing()
-        dwg.set_view_port(200, 200)
-        dwg.print_drawing()
-        self.update()
+        dwg.set_view_port(_width, _height, _units)
+        dwg.add(dwg.rect((0, 0), (50, 100), fill='red'))
+        dwg.add(dwg.text("Hello World", insert=(10, 10)))
+        dwg.print_svg()
+        dwg.save()
+        self.svg_widget.load(SAMPLE_SVG_PATH)
 
     def download_svg(self):
         print("Download SVG action triggered")

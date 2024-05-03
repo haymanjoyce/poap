@@ -25,3 +25,11 @@ def get_path(name: str):
     except FileNotFoundError:
         print("No config file found.")
         return None
+
+
+def get_df_by_name(dfs, name):
+    for df in dfs:
+        if df.name == name:
+            return df
+    return None
+
